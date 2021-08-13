@@ -23,11 +23,10 @@ import javafx.stage.Stage;
  *
  * @author guill
  */
-public class EjemploControlador implements Initializable {
-
+public class PantallaJuegoController implements Initializable {
 
     @FXML
-    private Button btnComenzar;
+    private Button btnRetroceder;
 
     /**
      * Initializes the controller class.
@@ -36,29 +35,35 @@ public class EjemploControlador implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
+
     @FXML
-    private void comenzar(ActionEvent event) {
+    private void retro(ActionEvent event) {
+    }
+    
+
+    
+    
+    public void closeWindows(){
         
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaJuego.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaInicial.fxml"));
             Parent root = loader.load();
-            PantallaJuegoController controlador = loader.getController();
+            EjemploControlador controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
             
-            stage.setOnCloseRequest(e -> controlador.closeWindows());
             
-            Stage myStage = (Stage) this.btnComenzar.getScene().getWindow();
+            Stage myStage = (Stage) this.btnRetroceder.getScene().getWindow();
             myStage.close();
             
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-        
+          
     }
+    
     
     @FXML
     public void exitApplication(ActionEvent event) {
