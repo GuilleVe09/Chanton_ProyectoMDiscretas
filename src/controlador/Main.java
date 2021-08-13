@@ -20,17 +20,17 @@ import javafx.stage.Stage;
  * @author guill
  */
 public class Main extends Application{
-    
-    @Override
+
+     @Override
     public void start(Stage primaryStage) {
         
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/vistas/pantallaInicial.fxml"));
+            loader.setLocation(Main.class.getResource("/vistas/ej.fxml"));
             Pane ventana = (Pane) loader.load();
             
             Scene scene = new Scene(ventana);
-            scene.setRoot(ventana);
+            //scene.setRoot(ventana);
             primaryStage.setScene(scene);
             primaryStage.show();
         }catch(IOException e){
