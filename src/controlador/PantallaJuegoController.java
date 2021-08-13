@@ -15,7 +15,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +31,21 @@ public class PantallaJuegoController implements Initializable {
 
     @FXML
     private Button btnRetroceder;
+    @FXML
+    private TextField txtnumRondas;
+    @FXML
+    private Button btnGuardarRondas;
+    @FXML
+    private Button btnGuardarLetraE;
+    @FXML
+    private Button btnIniciarJuego;
+    
+    private int nRondas;
+    private Character letra;
+    @FXML
+    private Label lblNumeroRondas;
+    @FXML
+    private Label lblLetraEscogida;
 
     /**
      * Initializes the controller class.
@@ -67,6 +86,29 @@ public class PantallaJuegoController implements Initializable {
     
     public void exitApplication(ActionEvent event) {
         Platform.exit();
+    }
+
+    @FXML
+    private void guardarRondas(MouseEvent event) {
+        try{
+            nRondas = Integer.parseInt(txtnumRondas.getText());
+            lblNumeroRondas.setText(String.valueOf(nRondas));
+        }catch(NumberFormatException e){
+            Alert a = new Alert(Alert.AlertType.ERROR, "Inserte unicamente numeros");
+            a.show();
+        }catch(Exception e){
+            Alert a = new Alert(Alert.AlertType.ERROR, "No se ha podido guardar el numero de rondas");
+            a.show();
+        }
+        
+    }
+
+    @FXML
+    private void guardarLetraE(MouseEvent event) {
+    }
+
+    @FXML
+    private void iniciarJuego(MouseEvent event) {
     }
 
     
