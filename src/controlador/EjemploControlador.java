@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -34,11 +35,11 @@ public class EjemploControlador implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
     
     @FXML
-    private void comenzar(ActionEvent event) {
+    private void comenzar(MouseEvent event) {
         
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaJuego.fxml"));
@@ -60,7 +61,6 @@ public class EjemploControlador implements Initializable {
         
     }
     
-    @FXML
     public void exitApplication(ActionEvent event) {
         Platform.exit();
     }
