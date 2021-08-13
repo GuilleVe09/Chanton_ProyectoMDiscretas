@@ -65,7 +65,6 @@ public class PantallaJuegoController implements Initializable {
     }
     
     
-    @FXML
     public void exitApplication(ActionEvent event) {
         Platform.exit();
     }
