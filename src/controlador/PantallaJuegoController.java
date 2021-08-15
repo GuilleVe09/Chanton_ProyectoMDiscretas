@@ -52,13 +52,16 @@ public class PantallaJuegoController implements Initializable {
     private TextField txtletraEscogida;
     @FXML
     private Label lblLetraEscogidaEs;
-
+    
+    //Instancia del controlador
+    PantallaJuegoController controladorJuego;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        controladorJuego = this;
     }    
 
     @FXML
@@ -127,8 +130,27 @@ public class PantallaJuegoController implements Initializable {
         }
     }
 
+    //Metodo para pasar la informacion del total de rondas y la letra escogida 
     @FXML
-    private void iniciarJuego(MouseEvent event) {
+    private void iniciarJuego(MouseEvent event) throws IOException {
+        
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaChanton.fxml"));
+            Parent root = loader.load();
+            PantallaChantonController controladorChanton = loader.getController();
+
+            controladorChanton.recibeParametros(controladorJuego, String.valueOf(nRondas), Character.toString(letra));
+            Scene scene = new Scene(root);
+            Stage stage3 = new Stage();
+            stage3.setScene(scene);
+            stage3.show();
+            
+            Stage myStage = (Stage) this.btnIniciarJuego.getScene().getWindow();
+            myStage.close();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     

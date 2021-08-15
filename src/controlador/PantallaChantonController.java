@@ -27,6 +27,10 @@ public class PantallaChantonController implements Initializable {
     private TextField txtPuntosJugador;
     @FXML
     private TextField txtPuntosComputadora;
+    @FXML
+    private Label lblLetraEscogida;
+    
+    PantallaJuegoController controladorJuego;
 
     /**
      * Initializes the controller class.
@@ -36,4 +40,11 @@ public class PantallaChantonController implements Initializable {
         // TODO
     }    
     
+    
+    public void recibeParametros(PantallaJuegoController controlador, String rondas, String letra){
+        lblLetraEscogida.setText(letra);
+        lblTotalRondas.setText(rondas);
+        controladorJuego = controlador;
+    }
+
 }
