@@ -92,7 +92,7 @@ public class PantallaJuegoController implements Initializable {
     private void guardarRondas(MouseEvent event) {
         try{
             nRondas = Integer.parseInt(txtnumRondas.getText());
-            lblNumeroRondas.setText(String.valueOf(nRondas));
+            lblNumeroRondas.setText("Rondas: "+String.valueOf(nRondas));
         }catch(NumberFormatException e){
             Alert a = new Alert(Alert.AlertType.ERROR, "Inserte unicamente numeros");
             a.show();

@@ -71,7 +71,8 @@
             </HBox>
             <HBox prefHeight="27.0" prefWidth="509.0">
                <children>
-                  <Label fx:id="lblNumeroRondas" text="El numero total de rondas es:">
+                  <Label text="Rondas: " />
+                  <Label fx:id="lblNumeroRondas" prefHeight="17.0" prefWidth="0.0">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
