@@ -48,7 +48,7 @@
                         <Insets left="5.0" right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtletraEscogida">
+                  <TextField fx:id="txtletraEscogida" editable="false">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>
@@ -63,7 +63,11 @@
             </HBox>
             <HBox prefHeight="34.0" prefWidth="501.0">
                <children>
-                  <Button fx:id="btnGuardarLetraE" mnemonicParsing="false" onMouseClicked="#guardarLetraE" text="Guardar letra escogida" />
+                  <Button fx:id="btnEscogerLetraAzar" mnemonicParsing="false" onAction="#escogerLetraAlAzar" text="Escoger letra al azar" />
+                  <Button fx:id="btnGuardarLetraE" mnemonicParsing="false" onMouseClicked="#guardarLetraE" text="Guardar letra escogida">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></Button>
                </children>
                <padding>
                   <Insets left="200.0" top="5.0" />

@@ -8,6 +8,7 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ThreadLocalRandom;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,10 @@ public class PantallaJuegoController implements Initializable {
     
     //Instancia del controlador
     PantallaJuegoController controladorJuego;
+    @FXML
+    private Button btnEscogerLetraAzar;
+    
+    private char[] listaLetras = {'a','b','c','d','e'};
     /**
      * Initializes the controller class.
      */
@@ -151,6 +156,17 @@ public class PantallaJuegoController implements Initializable {
             System.out.println(e.getMessage());
         }
         
+    }
+
+    @FXML
+    private void escogerLetraAlAzar(ActionEvent event) {
+        int indiceAleatorio = numeroAleatorioEnRango(0, listaLetras.length - 1);
+        Character letraAleatoria = listaLetras[indiceAleatorio];
+        txtletraEscogida.setText(Character.toString(letraAleatoria));
+    }
+    
+    public static int numeroAleatorioEnRango(int minimo, int maximo){
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
     }
 
     
