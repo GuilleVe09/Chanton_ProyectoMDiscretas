@@ -7,8 +7,10 @@ package controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -31,6 +33,28 @@ public class PantallaChantonController implements Initializable {
     private Label lblLetraEscogida;
     
     PantallaJuegoController controladorJuego;
+    @FXML
+    private Button btnChanton;
+    @FXML
+    private Label lblTiempo;
+    @FXML
+    private Button btnRegresar;
+    @FXML
+    private TextField txtNombreJ;
+    @FXML
+    private TextField txtApellidoJ;
+    @FXML
+    private TextField txtPaisJ;
+    @FXML
+    private TextField txtAnimalJ;
+    @FXML
+    private TextField txtNombreC;
+    @FXML
+    private TextField txtApellidoC;
+    @FXML
+    private TextField txtPaisC;
+    @FXML
+    private TextField txtAnimalC;
 
     /**
      * Initializes the controller class.
@@ -46,5 +70,18 @@ public class PantallaChantonController implements Initializable {
         lblTotalRondas.setText(rondas);
         controladorJuego = controlador;
     }
+
+    @FXML
+    private void gritoChanton(ActionEvent event) {
+    }
+
+    @FXML
+    private void regresar(ActionEvent event) {
+    }
+    
+    //metodo de validacion de nombres del jugador
+    /*public static int validarNombre(Character letra, String nombre){
+        
+    }*/
 
 }
