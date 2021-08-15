@@ -48,6 +48,10 @@ public class PantallaJuegoController implements Initializable {
     private Label lblLetraEscogida;
     @FXML
     private Label lblRonda;
+    @FXML
+    private TextField txtletraEscogida;
+    @FXML
+    private Label lblLetraEscogidaEs;
 
     /**
      * Initializes the controller class.
@@ -94,7 +98,7 @@ public class PantallaJuegoController implements Initializable {
     private void guardarRondas(MouseEvent event) {
         try{
             nRondas = Integer.parseInt(txtnumRondas.getText());
-            lblNumeroRondas.setText("Rondas: "+String.valueOf(nRondas));
+            lblNumeroRondas.setText(String.valueOf(nRondas));
         }catch(NumberFormatException e){
             Alert a = new Alert(Alert.AlertType.ERROR, "Inserte unicamente numeros");
             a.show();
@@ -105,8 +109,22 @@ public class PantallaJuegoController implements Initializable {
         
     }
 
+    // Poner validacion de que no se inserte un numero
     @FXML
     private void guardarLetraE(MouseEvent event) {
+        String letraCadena;
+        try{
+            letraCadena = txtletraEscogida.getText();
+            letra = letraCadena.charAt(0);
+            lblLetraEscogida.setText(String.valueOf(letra));
+            
+        }catch(IllegalArgumentException e){
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingrese unicamente una letra");
+            a.show();
+        }catch(Exception e2){
+            Alert a = new Alert(Alert.AlertType.ERROR, "No se ha podido guardar el numero de rondas");
+            a.show();
+        }
     }
 
     @FXML

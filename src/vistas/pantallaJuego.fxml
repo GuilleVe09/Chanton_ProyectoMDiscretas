@@ -10,7 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="543.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaJuegoController">
    <children>
-      <VBox layoutX="150.0" prefHeight="504.0" prefWidth="509.0">
+      <VBox prefHeight="504.0" prefWidth="659.0">
          <children>
             <HBox prefHeight="44.0" prefWidth="501.0">
                <children>
@@ -48,7 +48,7 @@
                         <Insets left="5.0" right="50.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField>
+                  <TextField fx:id="txtletraEscogida">
                      <HBox.margin>
                         <Insets left="100.0" />
                      </HBox.margin>
@@ -71,15 +71,23 @@
             </HBox>
             <HBox prefHeight="27.0" prefWidth="509.0">
                <children>
-                  <Label fx:id="lblRonda" text="Rondas: " />
-                  <Label fx:id="lblNumeroRondas" prefHeight="17.0" prefWidth="0.0">
+                  <Label fx:id="lblRonda" text="Rondas: ">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Label>
+                  <Label fx:id="lblNumeroRondas" prefHeight="3.0" prefWidth="23.0">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblLetraEscogida" text="La letra escogida es:">
+                  <Label fx:id="lblLetraEscogidaEs" text="La letra escogida: ">
                      <HBox.margin>
                         <Insets left="50.0" top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblLetraEscogida" prefHeight="17.0" prefWidth="16.0">
+                     <HBox.margin>
+                        <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
                   <Button fx:id="btnIniciarJuego" mnemonicParsing="false" onMouseClicked="#iniciarJuego" text="Iniciar">
@@ -93,6 +101,5 @@
          </children>
       </VBox>
       <Button fx:id="btnRetroceder" layoutX="405.0" layoutY="492.0" mnemonicParsing="false" onAction="#retro" text="Retroceder" />
-      <Label layoutX="10.0" layoutY="14.0" prefHeight="32.0" prefWidth="140.0" text="Maquina de estado finito" />
    </children>
 </AnchorPane>
