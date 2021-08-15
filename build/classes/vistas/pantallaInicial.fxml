@@ -6,7 +6,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EjemploControlador">
    <children>
-      <Label layoutX="199.0" layoutY="133.0" text="Presiona el boton para comenzar el juego" />
+      <Label layoutX="199.0" layoutY="133.0" text="Presiona el boton para comenzar el juego!!" />
       <Button fx:id="btnComenzar" layoutX="265.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#comenzar" text="Comenzar" />
    </children>
 </AnchorPane>
