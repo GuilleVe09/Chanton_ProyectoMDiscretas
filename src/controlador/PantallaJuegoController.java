@@ -46,6 +46,8 @@ public class PantallaJuegoController implements Initializable {
     private Label lblNumeroRondas;
     @FXML
     private Label lblLetraEscogida;
+    @FXML
+    private Label lblRonda;
 
     /**
      * Initializes the controller class.
