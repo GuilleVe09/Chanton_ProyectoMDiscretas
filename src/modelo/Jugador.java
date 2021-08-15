@@ -12,8 +12,9 @@ package modelo;
 public class Jugador {
     
     private int puntaje;
+    private String nickname;
 
-    public Jugador() {
+    public Jugador(String nickname) {
         
     }
 
