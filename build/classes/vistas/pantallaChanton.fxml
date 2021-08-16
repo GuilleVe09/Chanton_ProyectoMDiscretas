@@ -2,15 +2,20 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="539.0" prefWidth="712.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
+<BorderPane prefHeight="564.0" prefWidth="805.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
    <left>
       <VBox alignment="CENTER" prefHeight="330.0" prefWidth="120.0" spacing="20.0" style="-fx-background-color: #427299;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -20,7 +25,21 @@
             <Insets bottom="10.0" top="10.0" />
          </padding>
          <children>
-            <Button fx:id="btnChanton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="75.0" prefWidth="88.0" text="Button" />
+            <VBox alignment="CENTER" prefHeight="63.0" prefWidth="120.0">
+               <children>
+                  <Label alignment="CENTER" text="Letra">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblLetra" text="A">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Button fx:id="btnChanton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="75.0" prefWidth="88.0" text="Chanton" />
             <Button fx:id="btnSgteRonda" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" prefWidth="88.0" text="Siguiente Ronda" textAlignment="CENTER" wrapText="true" />
             <Button fx:id="btnRegresar" mnemonicParsing="false" prefWidth="88.0" text="Regresar" />
          </children>
@@ -105,4 +124,59 @@
          </children>
       </VBox>
    </top>
+   <center>
+      <VBox prefHeight="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="_txtJugador" text="Jugador">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <GridPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ScrollPane prefHeight="131.0" prefWidth="505.0" GridPane.halignment="CENTER">
+                     <content>
+                        <VBox fx:id="vbJugador" prefHeight="200.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </GridPane>
+            <Label text="Computadora">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <GridPane layoutX="10.0" layoutY="41.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ScrollPane prefHeight="131.0" prefWidth="505.0" GridPane.halignment="CENTER">
+                     <content>
+                        <VBox fx:id="vbComputadora" prefHeight="200.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </GridPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets right="15.0" />
+         </padding>
+      </VBox>
+   </center>
 </BorderPane>
