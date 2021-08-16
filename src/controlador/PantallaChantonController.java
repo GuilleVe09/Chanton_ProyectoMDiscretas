@@ -8,12 +8,11 @@ package controlador;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import modelo.Jugador;
 
 /**
@@ -22,41 +21,30 @@ import modelo.Jugador;
  * @author guill
  */
 public class PantallaChantonController implements Initializable {
-
     @FXML
-    private Label lblRondas;
+    private Text txtJugador;
     @FXML
-    private Label lblTotalRondas;
+    private Text txtPuntajeJugador;
     @FXML
-    private TextField txtPuntosJugador;
+    private Text txtPuntajeCompu;       
     @FXML
-    private TextField txtPuntosComputadora;
+    private Text txtRondas;
     @FXML
-    private Label lblLetraEscogida;    
+    private Text txtTotalRondas;
+    @FXML
+    private Text txtChanton;
+    @FXML
+    private Text txtTiempo;
     @FXML
     private Button btnChanton;
     @FXML
-    private Label lblTiempo;
+    private Button btnSgteRonda;
     @FXML
     private Button btnRegresar;
-    @FXML
-    private TextField txtNombreJ;
-    @FXML
-    private TextField txtApellidoJ;
-    @FXML
-    private TextField txtPaisJ;
-    @FXML
-    private TextField txtAnimalJ;
-    @FXML
-    private TextField txtNombreC;
-    @FXML
-    private TextField txtApellidoC;
-    @FXML
-    private TextField txtPaisC;
-    @FXML
-    private TextField txtAnimalC;
-
+    
     PantallaConfiguracionesController controladorJuego;
+    
+    private String letraEscogida;
     /**
      * Initializes the controller class.
      */
@@ -67,22 +55,10 @@ public class PantallaChantonController implements Initializable {
     
     
     public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra, List<String> campos, Jugador jugador){
-        lblLetraEscogida.setText(letra);
-        lblTotalRondas.setText(rondas);
+        letraEscogida = letra;
+        txtTotalRondas.setText(rondas);
+        txtRondas.setText("1");
+        txtJugador.setText(jugador.getNickname());
         controladorJuego = controlador;
     }
-
-    @FXML
-    private void gritoChanton(ActionEvent event) {
-    }
-
-    @FXML
-    private void regresar(ActionEvent event) {
-    }
-    
-    //metodo de validacion de nombres del jugador
-    /*public static int validarNombre(Character letra, String nombre){
-        
-    }*/
-
 }

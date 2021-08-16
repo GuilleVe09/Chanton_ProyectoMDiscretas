@@ -208,13 +208,13 @@ public class PantallaConfiguracionesController implements Initializable {
                     agregarCampo(s);
                 else
                     eliminarCampo(s);
-                System.out.println(this.camposSeleccionados);
             });
         }
     }
     
     private void agregarCampo(String str){
         this.camposSeleccionados.add(str);
+        this.continuar = true;
     }
     
     private void eliminarCampo(String str){
@@ -223,6 +223,7 @@ public class PantallaConfiguracionesController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "Debe seleccionar al menos un campo");
             a.setHeaderText("Seleccione uno o mas campos para el juego");
             a.show();
+            this.continuar = false;
         }
     }
 

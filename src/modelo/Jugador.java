@@ -16,6 +16,7 @@ public class Jugador {
 
     public Jugador(String nickname) {
         this.nickname = nickname;
+        puntaje = 0;
     }
 
     public int getPuntaje() {
@@ -26,8 +27,16 @@ public class Jugador {
         this.puntaje = puntaje;
     }
     
-    
-    
-    
+    public void aumentarPuntaje(int puntaje){
+        puntaje+=puntaje;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
     
 }

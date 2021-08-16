@@ -22,16 +22,14 @@
     -fx-font-size: 16px;
     -fx-display: inline-block;
     -fx-mark-color: black;
-    -fx-border-width: 2;
-    -fx-border: 2px solid #ccc;
 }
 .root{
     -fx-background-color: #E33630;
 }
-/*
-#SpinnerButtonUp {  
-    -fx-background-insets: 0;  
-    -fx-background-radius:0 3 0 0;  
-    /*    -fx-background-radius:0;  
-} 
-*/
+
+Text { 
+ -fx-fill: black;
+ -fx-font-size: 18px;
+ -fx-font-family: "Arial Narrow";
+ -fx-font-weight: bold;
+}
