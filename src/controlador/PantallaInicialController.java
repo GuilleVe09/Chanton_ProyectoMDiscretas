@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  *
  * @author guill
  */
-public class EjemploControlador implements Initializable {
+public class PantallaInicialController implements Initializable {
 
 
     @FXML
@@ -42,9 +42,9 @@ public class EjemploControlador implements Initializable {
     private void comenzar(MouseEvent event) {
         
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaJuego.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaConfiguraciones.fxml"));
             Parent root = loader.load();
-            PantallaJuegoController controlador = loader.getController();
+            PantallaConfiguracionesController controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

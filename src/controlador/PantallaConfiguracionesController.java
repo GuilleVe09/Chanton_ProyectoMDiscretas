@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -28,16 +29,11 @@ import javafx.stage.Stage;
  *
  * @author guill
  */
-public class PantallaJuegoController implements Initializable {
+public class PantallaConfiguracionesController implements Initializable {
 
-    @FXML
     private Button btnRetroceder;
     @FXML
     private TextField txtnumRondas;
-    @FXML
-    private Button btnGuardarRondas;
-    @FXML
-    private Button btnGuardarLetraE;
     @FXML
     private Button btnIniciarJuego;
     
@@ -55,11 +51,17 @@ public class PantallaJuegoController implements Initializable {
     private Label lblLetraEscogidaEs;
     
     //Instancia del controlador
-    PantallaJuegoController controladorJuego;
+    PantallaConfiguracionesController controladorJuego;
     @FXML
     private Button btnEscogerLetraAzar;
     
-    private char[] listaLetras = {'a','b','c','d','e'};
+    private char[] listaLetras = {'A','B','C','D','E'};
+    @FXML
+    private Button btnGuardar;
+    @FXML
+    private TextField txtnickname;
+    @FXML
+    private VBox vbCamposJuego;
     /**
      * Initializes the controller class.
      */
@@ -69,19 +71,13 @@ public class PantallaJuegoController implements Initializable {
         controladorJuego = this;
     }    
 
-    @FXML
-    private void retro(ActionEvent event) {
-    }
-    
-
-    
     
     public void closeWindows(){
         
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaInicial.fxml"));
             Parent root = loader.load();
-            EjemploControlador controlador = loader.getController();
+            PantallaInicialController controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
@@ -102,7 +98,6 @@ public class PantallaJuegoController implements Initializable {
         Platform.exit();
     }
 
-    @FXML
     private void guardarRondas(MouseEvent event) {
         try{
             nRondas = Integer.parseInt(txtnumRondas.getText());
@@ -118,7 +113,6 @@ public class PantallaJuegoController implements Initializable {
     }
 
     // Poner validacion de que no se inserte un numero
-    @FXML
     private void guardarLetraE(MouseEvent event) {
         String letraCadena;
         try{

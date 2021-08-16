@@ -32,7 +32,7 @@ public class PantallaChantonController implements Initializable {
     @FXML
     private Label lblLetraEscogida;
     
-    PantallaJuegoController controladorJuego;
+    PantallaConfiguracionesController controladorJuego;
     @FXML
     private Button btnChanton;
     @FXML
@@ -65,7 +65,7 @@ public class PantallaChantonController implements Initializable {
     }    
     
     
-    public void recibeParametros(PantallaJuegoController controlador, String rondas, String letra){
+    public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra){
         lblLetraEscogida.setText(letra);
         lblTotalRondas.setText(rondas);
         controladorJuego = controlador;

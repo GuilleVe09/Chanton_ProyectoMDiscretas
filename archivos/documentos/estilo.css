@@ -1,7 +1,7 @@
 
 .label{
-    -fx-text-fill: white;
-    -fx-font-family: "Arial Narrow";
+    -fx-text-fill: green;
+    -fx-font-family: "Britannic Bold";
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
