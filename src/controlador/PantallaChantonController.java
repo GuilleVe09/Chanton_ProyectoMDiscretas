@@ -6,6 +6,7 @@
 package controlador;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import modelo.Jugador;
 
 /**
  * FXML Controller class
@@ -30,10 +32,7 @@ public class PantallaChantonController implements Initializable {
     @FXML
     private TextField txtPuntosComputadora;
     @FXML
-    private Label lblLetraEscogida;
-    
-    PantallaConfiguracionesController controladorJuego;
-    
+    private Label lblLetraEscogida;    
     @FXML
     private Button btnChanton;
     @FXML
@@ -57,6 +56,7 @@ public class PantallaChantonController implements Initializable {
     @FXML
     private TextField txtAnimalC;
 
+    PantallaConfiguracionesController controladorJuego;
     /**
      * Initializes the controller class.
      */
@@ -66,7 +66,7 @@ public class PantallaChantonController implements Initializable {
     }    
     
     
-    public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra){
+    public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra, List<String> campos, Jugador jugador){
         lblLetraEscogida.setText(letra);
         lblTotalRondas.setText(rondas);
         controladorJuego = controlador;

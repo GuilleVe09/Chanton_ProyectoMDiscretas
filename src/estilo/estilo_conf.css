@@ -22,7 +22,8 @@
     -fx-font-size: 16px;
     -fx-display: inline-block;
     -fx-mark-color: black;
-    -fx-border-width: 2
+    -fx-border-width: 2;
+    -fx-border: 2px solid #ccc;
 }
 .root{
     -fx-background-color: #E33630;

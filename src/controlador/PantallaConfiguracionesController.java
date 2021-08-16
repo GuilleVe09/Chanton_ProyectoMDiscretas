@@ -143,13 +143,12 @@ public class PantallaConfiguracionesController implements Initializable {
     
     //Metodo para pasar la informacion del total de rondas y la letra escogida 
     @FXML
-    private void iniciarJuego(MouseEvent event) {
-        
+    private void iniciarJuego(ActionEvent event) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaChanton.fxml"));
             Parent root = loader.load();
             PantallaChantonController controladorChanton = loader.getController();
-            controladorChanton.recibeParametros(controladorJuego, String.valueOf(nRondas), Character.toString(letra));
+            controladorChanton.recibeParametros(controladorJuego, String.valueOf(nRondas), Character.toString(letra),this.camposSeleccionados,this.jugador);
             Scene scene = new Scene(root);
             Stage stage3 = new Stage();
             stage3.setScene(scene);
@@ -159,7 +158,9 @@ public class PantallaConfiguracionesController implements Initializable {
             myStage.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
-        }        
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }      
     }
 
     @FXML
@@ -183,7 +184,7 @@ public class PantallaConfiguracionesController implements Initializable {
             this.btnIniciarJuego.setDisable(!continuar);
         }            
     }
-    
+    //Valida que los textField no esten vacios 
     public boolean validarTextField(){
         if(this.txtnickname.getText().isEmpty() || this.txtletraEscogida.getText().isEmpty() || this.camposSeleccionados.isEmpty()){
             Alert a = new Alert(Alert.AlertType.ERROR, "Todos los campos son obligatorios");
@@ -195,7 +196,7 @@ public class PantallaConfiguracionesController implements Initializable {
     }
     
     public void guardarJugador(){
-        this.jugador = new Jugador(this.txtnickname.getText());
+        this.jugador = new Jugador(this.txtnickname.getText().trim());
     }    
     
     private void mostrarCamposDisponibles(){
@@ -207,6 +208,7 @@ public class PantallaConfiguracionesController implements Initializable {
                     agregarCampo(s);
                 else
                     eliminarCampo(s);
+                System.out.println(this.camposSeleccionados);
             });
         }
     }
@@ -223,4 +225,5 @@ public class PantallaConfiguracionesController implements Initializable {
             a.show();
         }
     }
+
 }
