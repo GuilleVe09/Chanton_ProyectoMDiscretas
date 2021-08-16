@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -39,8 +38,7 @@ public class PantallaInicialController implements Initializable {
     }    
     
     @FXML
-    private void comenzar(MouseEvent event) {
-        
+    private void comenzar() {        
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaConfiguraciones.fxml"));
             Parent root = loader.load();
@@ -49,16 +47,13 @@ public class PantallaInicialController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            
             stage.setOnCloseRequest(e -> controlador.closeWindows());
-            
             Stage myStage = (Stage) this.btnComenzar.getScene().getWindow();
             myStage.close();
             
         }catch(IOException e){
             System.out.println(e.getMessage());
-        }
-        
+        }        
     }
     
     public void exitApplication(ActionEvent event) {

@@ -33,6 +33,7 @@ public class PantallaChantonController implements Initializable {
     private Label lblLetraEscogida;
     
     PantallaConfiguracionesController controladorJuego;
+    
     @FXML
     private Button btnChanton;
     @FXML

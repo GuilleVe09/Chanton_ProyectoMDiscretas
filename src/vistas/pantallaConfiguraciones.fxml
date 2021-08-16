@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,14 +24,14 @@
    <left>
       <VBox prefHeight="543.0" spacing="15.0" style="-fx-background-color: #427299;" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Nickname:" />
-            <Label prefHeight="26.0" text="Inserte el numero de rondas a disputar:" VBox.vgrow="ALWAYS">
+            <Label fx:id="_lblNickname" text="Nickname:" />
+            <Label fx:id="_lblRondas" prefHeight="26.0" text="Inserte el numero de rondas a disputar:" VBox.vgrow="ALWAYS">
                <padding>
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label text="La letra escogida es: " />
-            <Label text="Campos del juego:" />
+            <Label fx:id="_lblLetra" text="La letra escogida es: " />
+            <Label fx:id="_lblCampos" text="Campos del juego:" />
          </children>
          <BorderPane.margin>
             <Insets left="30.0" top="10.0" />
@@ -46,16 +47,16 @@
             <VBox prefHeight="359.0" prefWidth="350.0" spacing="15.0" style="-fx-background-color: #427299;" VBox.vgrow="ALWAYS">
                <children>
                   <TextField fx:id="txtnickname" />
-                  <TextField fx:id="txtnumRondas" />
+                  <Spinner fx:id="spnNumRondas" maxWidth="1.7976931348623157E308" />
                   <HBox prefHeight="27.0" prefWidth="350.0" spacing="20.0">
                      <children>
-                        <TextField fx:id="txtletraEscogida" prefHeight="25.0" prefWidth="231.0" />
+                        <TextField fx:id="txtletraEscogida" prefHeight="25.0" prefWidth="154.0" />
                         <Button fx:id="btnEscogerLetraAzar" mnemonicParsing="false" onAction="#escogerLetraAlAzar" prefHeight="25.0" prefWidth="155.0" text="Escoger letra al azar" textAlignment="CENTER" />
                      </children>
                   </HBox>
                   <ScrollPane fitToWidth="true" prefHeight="208.0" prefWidth="350.0">
                      <content>
-                        <VBox fx:id="vbCamposJuego" prefHeight="200.0" />
+                        <VBox fx:id="vbCamposJuego" prefHeight="200.0" style="-fx-background-color: #FFFFFF;" />
                      </content>
                   </ScrollPane>
                </children>
@@ -80,12 +81,12 @@
          <children>
             <HBox alignment="CENTER" prefHeight="27.0" prefWidth="509.0" spacing="20.0">
                <children>
-                  <Button fx:id="btnGuardar" mnemonicParsing="false" onMouseClicked="#iniciarJuego" prefWidth="121.0" text="Guardar">
+                  <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarConfiguraciones" prefWidth="121.0" text="Guardar">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                      <font>
-                        <Font size="14.0" />
+                        <Font size="15.0" />
                      </font>
                   </Button>
                   <Label fx:id="lblRonda" text="Rondas: ">
@@ -93,7 +94,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblNumeroRondas" prefHeight="3.0" prefWidth="23.0">
+                  <Label fx:id="lblNumeroRondas" prefHeight="3.0" prefWidth="23.0" text="0">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -103,7 +104,7 @@
                         <Insets left="50.0" top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lblLetraEscogida" prefHeight="17.0" prefWidth="16.0">
+                  <Label fx:id="lblLetraEscogida" prefHeight="17.0" prefWidth="16.0" text="-">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
@@ -118,7 +119,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button fx:id="btnIniciarJuego" mnemonicParsing="false" prefHeight="55.0" prefWidth="150.0" text="Iniciar Juego">
+                  <Button fx:id="btnIniciarJuego" disable="true" mnemonicParsing="false" prefHeight="55.0" prefWidth="150.0" text="Iniciar Juego">
                      <font>
                         <Font size="18.0" />
                      </font>

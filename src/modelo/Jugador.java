@@ -15,7 +15,7 @@ public class Jugador {
     private String nickname;
 
     public Jugador(String nickname) {
-        
+        this.nickname = nickname;
     }
 
     public int getPuntaje() {
