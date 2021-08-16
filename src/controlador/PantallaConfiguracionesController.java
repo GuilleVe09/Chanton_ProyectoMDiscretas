@@ -55,7 +55,7 @@ public class PantallaConfiguracionesController implements Initializable {
     @FXML
     private Button btnEscogerLetraAzar;
     
-    private char[] listaLetras = {'A','B','C','D','E'};
+    private final char[] listaLetras = {'A','B','C','D','E'};
     @FXML
     private Button btnGuardar;
     @FXML
