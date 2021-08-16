@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import modelo.Jugador;
@@ -53,12 +54,18 @@ public class PantallaChantonController implements Initializable {
     @FXML
     private Label _txtJugador;
     @FXML
-    private VBox vbJugador;
+    private HBox hbEncabezadoJugador;
     @FXML
-    private VBox vbComputadora;
+    private HBox hbEncabezadoCompu;
+    @FXML
+    private VBox vbCamposJugador;
+    @FXML
+    private VBox vbCamposCompu;
     
-    List<String> campos;
+    private List<String> campos;
     private String letraEscogida;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -81,11 +88,14 @@ public class PantallaChantonController implements Initializable {
         _txtJugador.setText(jugador.getNickname());
         controladorJuego = controlador;
         this.campos = campos;
+        mostrarCamposJugador();
     }
     
-    public void mostrarCamposJugador(){
+    public void mostrarCamposJugador(){        
         for(String s: campos){
-            
+            System.out.println(s);
+            hbEncabezadoJugador.getChildren().add(new Text(s));
+            this.hbEncabezadoCompu.getChildren().add(new Text(s));
         }
     }
 }
