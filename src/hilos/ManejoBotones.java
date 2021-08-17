@@ -5,7 +5,6 @@
  */
 package hilos;
 
-import static hilos.CuentaRegresiva.esperar;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="564.0" prefWidth="805.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
+<BorderPane prefHeight="652.0" prefWidth="805.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
    <left>
       <VBox alignment="CENTER" prefHeight="330.0" prefWidth="120.0" spacing="20.0" style="-fx-background-color: #427299;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -38,14 +38,14 @@
             </VBox>
             <Button fx:id="btnChanton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pararMano" prefHeight="75.0" prefWidth="88.0" text="Chanton" />
             <Button fx:id="btnSgteRonda" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#sgteRonda" prefWidth="88.0" text="Siguiente Ronda" textAlignment="CENTER" wrapText="true" />
-            <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#regresar" prefWidth="88.0" text="Regresar" />
+            <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#regresar" prefWidth="88.0" text="Nuevo Juego" />
          </children>
       </VBox>
    </left>
    <top>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="728.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="169.0" fitWidth="359.0" pickOnBounds="true">
+            <ImageView fitHeight="157.0" fitWidth="357.0" pickOnBounds="true">
                <image>
                   <Image url="@../recursos/imagenes/principal.jpeg" />
                </image>
@@ -72,7 +72,7 @@
                   <VBox alignment="CENTER" prefHeight="200.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Text fx:id="txtChanton" strokeType="OUTSIDE" strokeWidth="0.0" text="Chanton" visible="false" />
-                        <Text fx:id="txtTiempo" strokeType="OUTSIDE" strokeWidth="0.0" text="0" visible="false" />
+                        <Text fx:id="txtTiempo" strokeType="OUTSIDE" strokeWidth="0.0" visible="false" />
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -129,7 +129,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ScrollPane prefHeight="135.0">
+            <ScrollPane prefHeight="400.0" prefWidth="630.0">
                <content>
                   <HBox fx:id="hbJugador" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <padding>
@@ -143,10 +143,20 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="20.0" layoutY="43.0" prefHeight="135.0">
+            <ScrollPane layoutX="20.0" layoutY="43.0" prefHeight="400.0" prefWidth="630.0">
                <content>
-                  <HBox fx:id="hbComputadora" alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox fx:id="hbComputadora" alignment="TOP_RIGHT" disable="true" opacity="0.95" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </HBox>
                </content>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
             </ScrollPane>
          </children>
          <BorderPane.margin>

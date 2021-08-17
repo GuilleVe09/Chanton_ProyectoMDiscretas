@@ -74,7 +74,7 @@ public class PantallaConfiguracionesController implements Initializable {
     private int nRondas;
     private Character letra;
     private final char[] listaLetras = {'A','B','C','D','E'};
-    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais");
+    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais","Fruta","Animal");
     private boolean continuar;    
     private List<String> camposSeleccionados;        
     private Jugador jugador;

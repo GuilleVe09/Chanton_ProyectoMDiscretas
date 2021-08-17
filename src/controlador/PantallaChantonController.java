@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -64,15 +65,17 @@ public class PantallaChantonController implements Initializable {
     private Label lblLetra;
     @FXML
     private Label _txtJugador;
-    
-    private List<String> campos;
-    private String letraEscogida;
-    private boolean ocultarTiempo;
-    private List<VBox> listaCampos;
     @FXML
     private HBox hbJugador;
     @FXML
     private HBox hbComputadora;
+    
+    private List<String> campos;
+    private String letraEscogida;
+    private boolean ocultarTiempo;
+    private List<VBox> listaCamposJugador;
+    private List<VBox> listaCamposComputador;
+    
     /**
      * Initializes the controller class.
      */
@@ -83,7 +86,8 @@ public class PantallaChantonController implements Initializable {
         imgChanton.setFitHeight(70.0);
         imgChanton.setFitWidth(82.0);
         this.btnChanton.setGraphic(imgChanton);
-        listaCampos = new ArrayList<>();
+        listaCamposJugador = new ArrayList<>();
+        listaCamposComputador = new ArrayList<>();
     }    
     
     
@@ -96,44 +100,74 @@ public class PantallaChantonController implements Initializable {
         _txtJugador.setText(jugador.getNickname());
         controladorJuego = controlador;
         this.campos = campos;
-        mostrarCamposJugador();
+        mostrarCamposJugador(hbJugador,listaCamposJugador,"Jugador");
+        mostrarCamposJugador(this.hbComputadora,listaCamposComputador,"PC");
     }
     
-    public void mostrarCamposJugador(){   
+    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, String tipo){           
         for(String s: campos){
             VBox newCampo = new VBox(10);
             newCampo.setAlignment(Pos.TOP_RIGHT);
             HBox hbEncabezadoJugador = new HBox(10);
             hbEncabezadoJugador.setAlignment(Pos.TOP_RIGHT);
-            hbEncabezadoJugador.getChildren().addAll(new Text(s),new Line(0.0f, 10.0f, 0.0f, 30.0f));
+            Text txt = new Text(s);
+            txt.setWrappingWidth(105);
+            hbEncabezadoJugador.getChildren().addAll(txt,new Line(0.0f, 10.0f, 0.0f, 30.0f));
             newCampo.getChildren().add(hbEncabezadoJugador);
-            this.listaCampos.add(newCampo);
-            this.hbJugador.getChildren().add(newCampo);
+            lista.add(newCampo);
+            encabezado.getChildren().add(newCampo);
         }        
-        agregarCampo();
+        agregarCampo(lista,tipo);
     }
+
     
-    private void agregarCampo(){
-        for(VBox vb: this.listaCampos){
+    private void agregarCampo(List<VBox> lista, String tipo){
+        for(VBox vb: lista){
+            VBox vbBotones = vbBotones();
             HBox newRonda = new HBox(10);
             newRonda.setAlignment(Pos.TOP_RIGHT);
             TextField txfJugador = new TextField();
-            newRonda.getChildren().addAll(txfJugador,new Line(0.0f, 10.0f, 0.0f, 30.0f));
+            if ("PC".equals(tipo))
+                txfJugador.setStyle("-fx-background-color: BLACK");
+            newRonda.getChildren().addAll(txfJugador,vbBotones,new Line(0.0f, 10.0f, 0.0f, 30.0f));
             vb.getChildren().addAll(newRonda);
-        }
+        }       
     }
 
+    private VBox vbBotones(){
+        VBox vbBotones = new VBox(5);
+        ImageView imgVisto = new ImageView(new Image("recursos/imagenes/visto.png"));
+        imgVisto.setFitHeight(8.0);
+        imgVisto.setFitWidth(8.0);
+        ImageView imgX = new ImageView(new Image("recursos/imagenes/x.png"));
+        imgX.setFitHeight(8.0);
+        imgX.setFitWidth(8.0);
+        Button visto = new Button("",imgVisto);
+        visto.setMinHeight(10);
+        Button x = new Button("",imgX);
+        x.setMinHeight(10);
+        vbBotones.getChildren().addAll(visto,x);
+        return vbBotones;
+    }
+    
+    private void bloquearTextField(List<TextField> lista, boolean activar){
+        lista.forEach(e->{
+            e.setDisable(activar);
+        });
+    }
     @FXML
     private void pararMano(ActionEvent event) {
         this.txtChanton.setVisible(true);
         this.txtTiempo.setVisible(true);
         this.btnChanton.setDisable(true);
         CuentaRegresiva cr = new CuentaRegresiva(10,this.txtTiempo,this.txtChanton);
+        cr.setDaemon(true);
         cr.start();
         int value = 1;
         if (Integer.parseInt(this.txtTotalRondas.getText())==Integer.parseInt(this.txtRondas.getText()))
             value = 0;
         ManejoBotones mb = new ManejoBotones(this.btnChanton,btnSgteRonda,this.txtTiempo,value);
+        mb.setDaemon(true);
         mb.start();
     }
 
@@ -156,6 +190,14 @@ public class PantallaChantonController implements Initializable {
 
     @FXML
     private void sgteRonda(ActionEvent event) {
+        int rondaSgte = Integer.parseInt(txtRondas.getText())+1;
+        this.txtRondas.setText(String.valueOf(rondaSgte));       
+        if(rondaSgte<=(Integer.parseInt(this.txtTotalRondas.getText()))){
+            this.btnSgteRonda.setDisable(true);
+            this.btnChanton.setDisable(false);
+        }
+        agregarCampo(listaCamposJugador,"Jugador");
+        agregarCampo(listaCamposComputador,"PC");
     }
    
 }

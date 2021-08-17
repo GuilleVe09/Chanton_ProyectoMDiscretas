@@ -147,4 +147,28 @@ Atacames,ciudad/pais
 Azogues,ciudad/pais
 Amsterdan,ciudad/pais
 Atenas,ciudad/pais
-Arajuno,ciudad/pais
+Arizona,ciudad/pais
+Aceituna,fruta
+Acerola,fruta
+Albaricoque,fruta
+Almendra,fruta
+Anona Roja,fruta
+Alquejenje,fruta
+Arándano Azul,fruta
+Arándano Rojo,fruta
+Avellana,fruta
+Ardilla,animal
+Avestruz,animal
+Anaconda,animal
+Águila calva,animal
+Alacran,animal
+Alce,animal
+Acentor,animal
+Agaporni,animal
+Ágama,animal
+Asno,animal
+Armadillo,animal
+Atún,animal
+Antílope,animal
+Avispa,animal
+Ajolote,animal
