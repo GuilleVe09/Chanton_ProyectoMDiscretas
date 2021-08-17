@@ -6,7 +6,7 @@
 package controlador;
 
 import hilos.CuentaRegresiva;
-import hilos.ManejoBotones;
+import hilos.ManejoBotonesLaterales;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class PantallaChantonController implements Initializable {
             if ("PC".equals(tipo))
                 txfJugador.setStyle("-fx-background-color: BLACK");
             newRonda.getChildren().addAll(txfJugador,vbBotones,new Line(0.0f, 10.0f, 0.0f, 30.0f));
-            vb.getChildren().addAll(newRonda);
+            vb.getChildren().addAll(newRonda);     
         }       
     }
 
@@ -150,11 +150,7 @@ public class PantallaChantonController implements Initializable {
         return vbBotones;
     }
     
-    private void bloquearTextField(List<TextField> lista, boolean activar){
-        lista.forEach(e->{
-            e.setDisable(activar);
-        });
-    }
+    
     @FXML
     private void pararMano(ActionEvent event) {
         this.txtChanton.setVisible(true);
@@ -166,7 +162,7 @@ public class PantallaChantonController implements Initializable {
         int value = 1;
         if (Integer.parseInt(this.txtTotalRondas.getText())==Integer.parseInt(this.txtRondas.getText()))
             value = 0;
-        ManejoBotones mb = new ManejoBotones(this.btnChanton,btnSgteRonda,this.txtTiempo,value);
+        ManejoBotonesLaterales mb = new ManejoBotonesLaterales(this.btnChanton,btnSgteRonda,this.txtTiempo,value);
         mb.setDaemon(true);
         mb.start();
     }
