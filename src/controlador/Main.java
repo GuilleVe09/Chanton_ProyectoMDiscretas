@@ -6,7 +6,12 @@
 package controlador;
 
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +44,30 @@ public class Main extends Application{
        }
     }
 
-
+    
+    public static HashMap<Character,HashMap<String,List<String>>> crearMapa(){
+        HashMap<Character,HashMap<String,List<String>>> mapaFinal = new HashMap<>();
+        HashMap<String,List<String>> mapa = new HashMap<>();
+        
+        
+        try{
+            Scanner input = new Scanner(new File("src/recursos.archivos/a.txt"));
+            
+            while(input.hasNextLine()){
+                String line = input.nextLine();
+                String[] partes = line.split(",");
+                List palabras = mapa.getOrDefault(partes[1], new LinkedList());
+                palabras.add(partes[0]);
+                mapa.put(partes[1], palabras);
+            }
+            input.close();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+        mapaFinal.put('a', mapa);
+        return mapaFinal;
+    }
+    
     /**
      * @param args the command line arguments
      */
