@@ -33,7 +33,6 @@ public class CuentaRegresiva extends Thread{
             esperar(1);
             tiempo--;
         }
-        esperar(1);
         this.titulo.setVisible(false);
         this.regresiva.setVisible(false);       
     }

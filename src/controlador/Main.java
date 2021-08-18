@@ -47,12 +47,9 @@ public class Main extends Application{
     
     public static HashMap<Character,HashMap<String,List<String>>> crearMapa(){
         HashMap<Character,HashMap<String,List<String>>> mapaFinal = new HashMap<>();
-        HashMap<String,List<String>> mapa = new HashMap<>();
-        
-        
+        HashMap<String,List<String>> mapa = new HashMap<>();               
         try{
-            Scanner input = new Scanner(new File("src/recursos.archivos/a.txt"));
-            
+            Scanner input = new Scanner(new File("src/recursos.archivos/a.txt"));            
             while(input.hasNextLine()){
                 String line = input.nextLine();
                 String[] partes = line.split(",");

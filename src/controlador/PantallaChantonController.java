@@ -5,13 +5,17 @@
  */
 package controlador;
 
-import hilos.CuentaRegresiva;
+import hilos.*;
+import static hilos.CuentaRegresiva.esperar;
 import hilos.ManejoBotonesLaterales;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +28,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -58,11 +61,8 @@ public class PantallaChantonController implements Initializable {
     private Button btnSgteRonda;
     @FXML
     private Button btnRegresar;
-    
-    PantallaConfiguracionesController controladorJuego;
-   
     @FXML
-    private Label lblLetra;
+    private TextField lblLetra;
     @FXML
     private Label _txtJugador;
     @FXML
@@ -70,12 +70,17 @@ public class PantallaChantonController implements Initializable {
     @FXML
     private HBox hbComputadora;
     
+    PantallaConfiguracionesController controladorJuego;
+      
     private List<String> campos;
     private String letraEscogida;
-    private boolean ocultarTiempo;
+    private boolean habilitar;
     private List<VBox> listaCamposJugador;
     private List<VBox> listaCamposComputador;
-    
+    private hiloJuegoComputadora hiloJuegoC;
+    private ManejoBotones hiloManejoBotones;
+    private Map<String,String> palabrasJugador;
+    private Map<String,String> palabrasPC;
     /**
      * Initializes the controller class.
      */
@@ -87,7 +92,10 @@ public class PantallaChantonController implements Initializable {
         imgChanton.setFitWidth(82.0);
         this.btnChanton.setGraphic(imgChanton);
         listaCamposJugador = new ArrayList<>();
-        listaCamposComputador = new ArrayList<>();
+        listaCamposComputador = new ArrayList<>();        
+        palabrasJugador = new TreeMap<>();
+        palabrasPC = new TreeMap<>();
+        habilitar = true;
     }    
     
     
@@ -109,10 +117,10 @@ public class PantallaChantonController implements Initializable {
             VBox newCampo = new VBox(10);
             newCampo.setAlignment(Pos.TOP_RIGHT);
             HBox hbEncabezadoJugador = new HBox(10);
-            hbEncabezadoJugador.setAlignment(Pos.TOP_RIGHT);
+            hbEncabezadoJugador.setAlignment(Pos.CENTER_RIGHT);
             Text txt = new Text(s);
-            txt.setWrappingWidth(105);
-            hbEncabezadoJugador.getChildren().addAll(txt,new Line(0.0f, 10.0f, 0.0f, 30.0f));
+            txt.setWrappingWidth(130);
+            hbEncabezadoJugador.getChildren().addAll(txt,new Line(0.0f, 0.0f, 0.0f, 30.0f));
             newCampo.getChildren().add(hbEncabezadoJugador);
             lista.add(newCampo);
             encabezado.getChildren().add(newCampo);
@@ -122,19 +130,56 @@ public class PantallaChantonController implements Initializable {
 
     
     private void agregarCampo(List<VBox> lista, String tipo){
+        habilitar = true;
+        List<VBox> botones = new ArrayList<>();
         for(VBox vb: lista){
-            VBox vbBotones = vbBotones();
             HBox newRonda = new HBox(10);
-            newRonda.setAlignment(Pos.TOP_RIGHT);
+            newRonda.setAlignment(Pos.CENTER_RIGHT);
             TextField txfJugador = new TextField();
             if ("PC".equals(tipo))
                 txfJugador.setStyle("-fx-background-color: BLACK");
-            newRonda.getChildren().addAll(txfJugador,vbBotones,new Line(0.0f, 10.0f, 0.0f, 30.0f));
-            vb.getChildren().addAll(newRonda);     
+            HBox hb = (HBox)vb.getChildren().get(0);
+            VBox vbBotones = vbBotones(txfJugador, ((Text)hb.getChildren().get(0)).getText());
+            botones.add(vbBotones);
+            newRonda.getChildren().addAll(txfJugador,new Line(0.0f, 0.0f, 0.0f, 30.0f));
+            newRonda.setFocusTraversable(true);
+            vb.getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newRonda);     
         }       
+        threadBloquear(lista,botones);
+        
+    }
+    
+    private void threadBloquear(List<VBox> lista,List<VBox> botones){        
+        Thread tr = new Thread(()->{
+            do{
+                System.out.println(!habilitar);
+                if(!habilitar){
+                    System.out.println("chanton");
+                    Runnable updater = () -> {
+                        int cont = 0;
+                        for(VBox vb: lista){
+                            String campo = ((Text)(((HBox)vb.getChildren().get(0)).getChildren().get(0))).getText();
+                            System.out.println(campo.toLowerCase().trim());
+                            HBox ultimo = ((HBox)vb.getChildren().get(vb.getChildren().size()-1));                            
+                            ultimo.getChildren().remove(1);
+                            bloquearTextField((TextField)ultimo.getChildren().get(0),habilitar);
+                            ultimo.getChildren().addAll(botones.get(cont),new Line(0.0f, 0.0f, 0.0f, 30.0f));
+                            cont++;
+                        }
+                    };
+                    Platform.runLater(updater);
+                }
+            }while(habilitar);});
+        tr.setDaemon(true);
+        tr.start();         
+    }
+    private void bloquearTextField(TextField e, boolean habilitar){
+        e.setDisable(habilitar);
+        e.setEditable(habilitar);
+        e.setStyle("-fx-background-color: white");
     }
 
-    private VBox vbBotones(){
+    private VBox vbBotones(TextField txfJugador, String campo){
         VBox vbBotones = new VBox(5);
         ImageView imgVisto = new ImageView(new Image("recursos/imagenes/visto.png"));
         imgVisto.setFitHeight(8.0);
@@ -143,13 +188,16 @@ public class PantallaChantonController implements Initializable {
         imgX.setFitHeight(8.0);
         imgX.setFitWidth(8.0);
         Button visto = new Button("",imgVisto);
-        visto.setMinHeight(10);
+        visto.setMinHeight(8);
         Button x = new Button("",imgX);
-        x.setMinHeight(10);
+        x.setMinHeight(8);
         vbBotones.getChildren().addAll(visto,x);
         return vbBotones;
     }
     
+    private void sumarPuntos(){
+        
+    }
     
     @FXML
     private void pararMano(ActionEvent event) {
@@ -159,12 +207,17 @@ public class PantallaChantonController implements Initializable {
         CuentaRegresiva cr = new CuentaRegresiva(10,this.txtTiempo,this.txtChanton);
         cr.setDaemon(true);
         cr.start();
-        int value = 1;
-        if (Integer.parseInt(this.txtTotalRondas.getText())==Integer.parseInt(this.txtRondas.getText()))
-            value = 0;
-        ManejoBotonesLaterales mb = new ManejoBotonesLaterales(this.btnChanton,btnSgteRonda,this.txtTiempo,value);
-        mb.setDaemon(true);
-        mb.start();
+        Thread tr = new Thread(()->{
+            esperar(10);                
+            int value = 1;
+            if (Integer.parseInt(this.txtTotalRondas.getText())==Integer.parseInt(this.txtRondas.getText()))
+                value = 0;
+            this.btnChanton.setDisable(true);
+            if(value==1)
+                this.btnSgteRonda.setDisable(false);
+            habilitar = false;
+        });
+        tr.start();
     }
 
     @FXML

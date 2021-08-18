@@ -5,6 +5,7 @@
  */
 package hilos;
 
+import static hilos.CuentaRegresiva.esperar;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -16,29 +17,26 @@ import javafx.scene.text.Text;
 public class ManejoBotonesLaterales extends Thread {
     private Button btnChanton;
     private Button btnSgteRonda;
-    private Text tiempo;
-    private int cantTiempo;
+    private int tiempo;
     private int nRondas;
     
-    public ManejoBotonesLaterales(Button chanton, Button sgteRonda, Text tiempo,int nRondas) {
+    public ManejoBotonesLaterales(Button chanton, Button sgteRonda,int nRondas) {
         this.btnChanton = chanton;
         this.btnSgteRonda = sgteRonda;
-        this.tiempo = tiempo;
+        this.tiempo = 0;
         this.nRondas = nRondas;
     }
     
     @Override
     public void run() {
-        while(cantTiempo!=0){
-            Runnable updater = () -> {
-                this.cantTiempo = Integer.parseInt(tiempo.getText());
-            };
-            Platform.runLater(updater);            
+        while(tiempo<=10){ 
+            esperar(1);
+            tiempo++;
         }                
         this.btnChanton.setDisable(true);
-        if(nRondas==1){
+        System.out.println(tiempo);
+        if(nRondas==1 && tiempo==11)
             this.btnSgteRonda.setDisable(false);
-        }
     }
     
 }
