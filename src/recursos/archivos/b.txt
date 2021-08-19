@@ -1,0 +1,190 @@
+Balbino,nombre
+Baldomero,nombre
+Balduino,nombre
+Baltasar,nombre
+Bartolomé,nombre
+Basilio,nombre
+Beato,nombre
+Belisario,nombre
+Beltrán,nombre
+Benedicto,nombre
+Benigno,nombre
+Benito,nombre
+Benjamín,nombre
+Berengario,nombre
+Bernabé,nombre
+Bernardino,nombre
+Bernardo,nombre
+Betuel,nombre
+Bienvenido,nombre
+Blas,nombre
+Bonifacio,nombre
+Boris,nombre
+Borja,nombre
+Bosco,nombre
+Braulio,nombre
+Bruno,nombre
+Bárbara,nombre
+Basilisa,nombre
+Beatriz,nombre
+Begoña,nombre
+Belén,nombre
+Belinda,nombre
+Berenguela,nombre
+Berenice,nombre
+Bernarda,nombre
+Berta,nombre
+Betsabé,nombre
+Blanca,nombre
+Brígida,nombre
+Briseida,nombre
+Babier,apellido
+Baca,apellido
+Bacaicua,apellido
+Bacas,apellido
+Bacelar,apellido
+Bach,apellido
+Bachs,apellido
+Badal,apellido
+Badenes,apellido
+Badia,apellido
+Badiellas,apellido
+Badiola,apellido
+Badosa,apellido
+Baena,apellido
+Baeza,apellido
+Bafalluy,apellido
+Bagur,apellido
+Baigorri,apellido
+Bail,apellido
+Baiona,apellido
+Baixauli,apellido
+Bajo,apellido
+Bajona,apellido
+Bal,apellido
+Balabasquer,apellido
+Balaguer,apellido
+Balagueró,apellido
+Balanza,apellido
+Balao,apellido
+Balasch,apellido
+Balat,apellido
+Balberde,apellido
+Balboa,apellido
+Balbuena,apellido
+Balbás,apellido
+Balbín,apellido
+Balda,apellido
+Baldellou,apellido
+Baldich,apellido
+Baldo,apellido
+Balencia,apellido
+Balerdi,apellido
+Ballará,apellido
+Ballarín,apellido
+Ballber,apellido
+Balle,apellido
+Ballejo,apellido
+Ballejos,apellido
+Ballescar,apellido
+Ballesta,apellido
+Ballester,apellido
+Ballestero,apellido
+Ballesteros,apellido
+Ballina,apellido
+Ballver,apellido
+Balmes,apellido
+Balsas,apellido
+Balsera,apellido
+Balzategui,apellido
+Bandera,apellido
+Bahamas,ciudad/pais
+Bahréin,ciudad/pais
+Bangladesh,ciudad/pais
+Barbados,ciudad/pais
+Bégica,ciudad/pais
+Belice,ciudad/pais
+Benín,ciudad/pais
+Bermudas,ciudad/pais
+Birmania,ciudad/pais
+Bolivia,ciudad/pais
+Bosnia-Herzegovina,ciudad/pais
+Botsuana,ciudad/pais
+Brasil,ciudad/pais
+Brunéi,ciudad/pais
+Bulgaria,ciudad/pais
+Burkina,ciudad/pais
+Burundi,ciudad/pais
+Bután,ciudad/pais
+Badalona,ciudad/pais
+Baeza,ciudad/pais
+Bagdad,ciudad/pais
+Bahía de Algeciras,ciudad/pais
+Bahrein,ciudad/pais
+Bailén,ciudad/pais
+Babaco,fruta
+Baniano,fruta
+Banana,fruta
+Bergamota,fruta
+Bola de cañón,fruta
+Babirusa,animal
+Babosa,animal
+Babuíno,animal
+Bacalao Común,animal
+Bacalao de Noruega,animal
+Bacalao del Atlántico,animal
+Baiji,animal
+Ballena,animal
+Bandicoot,animal
+Banteng,animal
+Barasinga,animal
+Barracuda,animal
+Barranqueros,animal
+Basilisco Común,animal
+Becada,animal
+Beira,animal
+Beluga,animal
+Bermejuela,animal
+Berrendo,animal
+Besugo,animal
+Bisbita,animal
+Bisbita Campestre,animal
+Bisbita Común,animal
+Bisbita Prasente,animal
+Bisonte,animal
+Bisonte Americano,animal
+Bisonte Europeo,animal
+Blanquillo,animal
+Blesbok,animal
+Boa,animal
+Bocarte,animal
+Bogavante,animal
+Bongo,animal
+Bonito,animal
+Bonobo,animal
+Bontebok,animal
+Boquerón,animal
+Borochi,animal
+Boto,animal
+Boyero,animal
+Brema,animal
+Buco,animal
+Buey,animal
+Búfalo,animal
+Búfalo Acuático,animal
+Búho,animal
+Búho Americano,animal
+Búho Chico,animal
+Búho Cornudo,animal
+Búho Real,animal
+Buitre,animal
+Burro,animal
+Busardo Colorado,animal
+Busardo de Cola Corta,animal
+Busardo de Harris,animal
+Busardo de Hombros Rojos,animal
+Busardo Euroasiático,animal
+Busardo Negro Norteño,animal
+Busardo Ratonero,animal
+Busardo Sabanero,animal
+Buteo Albígula,animal

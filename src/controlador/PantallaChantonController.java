@@ -5,29 +5,38 @@
  */
 package controlador;
 
+import static controlador.Main.palabras;
 import hilos.*;
 import static hilos.CuentaRegresiva.esperar;
-import hilos.ManejoBotonesLaterales;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -77,10 +86,13 @@ public class PantallaChantonController implements Initializable {
     private boolean habilitar;
     private List<VBox> listaCamposJugador;
     private List<VBox> listaCamposComputador;
-    private hiloJuegoComputadora hiloJuegoC;
-    private ManejoBotones hiloManejoBotones;
     private Map<String,String> palabrasJugador;
     private Map<String,String> palabrasPC;
+    private List<TextField> listTxtJugador;
+    private List<TextField> listTxtPC;
+    private boolean chanton;
+    
+    private int i;
     /**
      * Initializes the controller class.
      */
@@ -92,10 +104,13 @@ public class PantallaChantonController implements Initializable {
         imgChanton.setFitWidth(82.0);
         this.btnChanton.setGraphic(imgChanton);
         listaCamposJugador = new ArrayList<>();
-        listaCamposComputador = new ArrayList<>();        
+        listaCamposComputador = new ArrayList<>();    
+        listTxtPC = new ArrayList<>();
+        listTxtJugador = new ArrayList<>();
         palabrasJugador = new TreeMap<>();
         palabrasPC = new TreeMap<>();
         habilitar = true;
+        chanton = false;
     }    
     
     
@@ -108,11 +123,12 @@ public class PantallaChantonController implements Initializable {
         _txtJugador.setText(jugador.getNickname());
         controladorJuego = controlador;
         this.campos = campos;
+        campos.add(0, "Letra");
         mostrarCamposJugador(hbJugador,listaCamposJugador,"Jugador");
         mostrarCamposJugador(this.hbComputadora,listaCamposComputador,"PC");
     }
     
-    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, String tipo){           
+    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, String tipo){       
         for(String s: campos){
             VBox newCampo = new VBox(10);
             newCampo.setAlignment(Pos.TOP_RIGHT);
@@ -130,14 +146,26 @@ public class PantallaChantonController implements Initializable {
 
     
     private void agregarCampo(List<VBox> lista, String tipo){
+        listTxtPC.clear();
+        listTxtJugador.clear();
         habilitar = true;
         List<VBox> botones = new ArrayList<>();
-        for(VBox vb: lista){
+        HBox newLetra = new HBox(10);
+        newLetra.setAlignment(Pos.CENTER_RIGHT);
+        TextField txtLetra = new TextField(this.lblLetra.getText().trim().toUpperCase());
+        txtLetra.setDisable(true);
+        txtLetra.setAlignment(Pos.CENTER);
+        newLetra.getChildren().addAll(txtLetra,new Line(0.0f, 0.0f, 0.0f, 30.0f));
+        lista.get(0).getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newLetra);     
+        for(VBox vb: lista.subList(1, lista.size())){
             HBox newRonda = new HBox(10);
             newRonda.setAlignment(Pos.CENTER_RIGHT);
             TextField txfJugador = new TextField();
-            if ("PC".equals(tipo))
-                txfJugador.setStyle("-fx-background-color: BLACK");
+            if ("PC".equals(tipo)){
+                txfJugador.setStyle("-fx-background-color: BLACK;-fx-text-fill: black");
+                listTxtPC.add(txfJugador);
+            }else
+                listTxtJugador.add(txfJugador);
             HBox hb = (HBox)vb.getChildren().get(0);
             VBox vbBotones = vbBotones(txfJugador, ((Text)hb.getChildren().get(0)).getText());
             botones.add(vbBotones);
@@ -145,19 +173,20 @@ public class PantallaChantonController implements Initializable {
             newRonda.setFocusTraversable(true);
             vb.getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newRonda);     
         }       
-        threadBloquear(lista,botones);
-        
+        if ("PC".equals(tipo))
+            iniciarJuegoPC(listTxtPC);
+        threadBloquear(lista,botones);        
     }
     
     private void threadBloquear(List<VBox> lista,List<VBox> botones){        
         Thread tr = new Thread(()->{
-            do{
+            while(habilitar){
                 System.out.println(!habilitar);
                 if(!habilitar){
                     System.out.println("chanton");
                     Runnable updater = () -> {
                         int cont = 0;
-                        for(VBox vb: lista){
+                        for(VBox vb: lista.subList(1, lista.size())){
                             String campo = ((Text)(((HBox)vb.getChildren().get(0)).getChildren().get(0))).getText();
                             System.out.println(campo.toLowerCase().trim());
                             HBox ultimo = ((HBox)vb.getChildren().get(vb.getChildren().size()-1));                            
@@ -169,10 +198,12 @@ public class PantallaChantonController implements Initializable {
                     };
                     Platform.runLater(updater);
                 }
-            }while(habilitar);});
+            }
+        });
         tr.setDaemon(true);
         tr.start();         
     }
+    
     private void bloquearTextField(TextField e, boolean habilitar){
         e.setDisable(habilitar);
         e.setEditable(habilitar);
@@ -201,6 +232,7 @@ public class PantallaChantonController implements Initializable {
     
     @FXML
     private void pararMano(ActionEvent event) {
+        chanton = true;
         this.txtChanton.setVisible(true);
         this.txtTiempo.setVisible(true);
         this.btnChanton.setDisable(true);
@@ -215,8 +247,9 @@ public class PantallaChantonController implements Initializable {
             this.btnChanton.setDisable(true);
             if(value==1)
                 this.btnSgteRonda.setDisable(false);
-            habilitar = false;
+            this.habilitar = false;
         });
+        tr.setDaemon(true);
         tr.start();
     }
 
@@ -239,14 +272,68 @@ public class PantallaChantonController implements Initializable {
 
     @FXML
     private void sgteRonda(ActionEvent event) {
+        chanton = false;
+        this.txtChanton.setText("Chanton");
+        this.lblLetra.setText("");
+        this.lblLetra.setEditable(true);
+        this.lblLetra.requestFocus();
         int rondaSgte = Integer.parseInt(txtRondas.getText())+1;
         this.txtRondas.setText(String.valueOf(rondaSgte));       
         if(rondaSgte<=(Integer.parseInt(this.txtTotalRondas.getText()))){
             this.btnSgteRonda.setDisable(true);
             this.btnChanton.setDisable(false);
         }
+        this.lblLetra.setOnKeyPressed((KeyEvent event1) -> {
+            if (event1.getCode() == KeyCode.ENTER) {
+                if (!this.lblLetra.getText().trim().matches("[a-zA-Z]")){
+                    Alert a = new Alert(AlertType.ERROR,"DEBE INGRESAR UNA LETRA VALIDA [A-Z]");
+                    a.show();
+                }else{
+                    nuevaLetra();
+                    this.lblLetra.setEditable(false);
+                }
+            }
+        });
+    }
+    
+    private void nuevaLetra(){
         agregarCampo(listaCamposJugador,"Jugador");
         agregarCampo(listaCamposComputador,"PC");
+    }
+    
+    private void iniciarJuegoPC(List<TextField> camposCompu){        
+        Map<String,List<String>> mapPal = palabras.get(this.lblLetra.getText().trim().charAt(0));        
+        Thread tr = new Thread(() -> {
+            i = 0;
+            for(String str: campos.subList(1, campos.size())){
+                if(!habilitar)
+                    break;
+                esperarRandom();
+                List<String> listaPalabras = mapPal.get(str.toLowerCase().trim());
+                String palabra = listaPalabras.get(numeroAleatorioEnRango(0,listaPalabras.size()-1));
+                System.out.println(palabra);
+                camposCompu.get(i).setText(palabra);
+                i++;
+            }
+            if(!chanton)
+                btnChanton.fire();
+        });
+        tr.setDaemon(true);
+        tr.start();
+    }
+    
+    private void esperarRandom(){
+        Random rd = new Random();
+        int tiempo = rd.nextInt(6000)+500;
+        try {
+            Thread.sleep(tiempo);
+        } catch (InterruptedException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public static int numeroAleatorioEnRango(int minimo, int maximo){
+        return ThreadLocalRandom.current().nextInt(minimo, maximo + 1);
     }
    
 }

@@ -7,6 +7,7 @@ package hilos;
 
 import javafx.application.Platform;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  *
@@ -33,8 +34,11 @@ public class CuentaRegresiva extends Thread{
             esperar(1);
             tiempo--;
         }
+        this.regresiva.setVisible(false);   
+        titulo.setTextAlignment(TextAlignment.CENTER);
+        titulo.setText("¡¡Parenme la mano!!");
+        esperar(3);
         this.titulo.setVisible(false);
-        this.regresiva.setVisible(false);       
     }
     
     public static void esperar(int segundos){
