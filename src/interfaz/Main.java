@@ -44,6 +44,18 @@ public class Main extends Application{
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
+            Stage stage = new Stage();
+            FXMLLoader loader2 = new FXMLLoader();
+            loader2.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
+            Pane ventana2 = (Pane) loader2.load();
+            
+            Scene scene2 = new Scene(ventana2);
+            scene2.setRoot(ventana2);
+            stage.setScene(scene2);
+            stage.show();
+            
+            
         }catch(IOException e){
             System.out.println(e.getMessage()); 
        }

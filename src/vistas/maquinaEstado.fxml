@@ -1,13 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<SplitPane fx:id="splitPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vistas.MaquinaEstadoController">
-   <items>
-      <BorderPane prefHeight="398.0" prefWidth="215.0" />
-      <VBox prefHeight="398.0" prefWidth="157.0" />
-   </items>
-</SplitPane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="755.0" stylesheets="@../estilo/maquinaestado.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.MaquinaEstadoController">
+   <top>
+      <ImageView fitHeight="138.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../recursos/imagenes/principal.jpeg" />
+         </image>
+      </ImageView>
+   </top>
+   <center>
+      <AnchorPane prefHeight="335.0" prefWidth="625.0" style="-fx-background-color: #E2E685;" BorderPane.alignment="CENTER">
+         <children>
+            <Line fx:id="lineIn" endX="-44.0" layoutX="115.0" layoutY="107.0" startX="-100.0" />
+            <Circle fx:id="circle1" fill="DODGERBLUE" layoutX="102.0" layoutY="108.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="DODGERBLUE" layoutX="230.0" layoutY="108.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+            <QuadCurve fx:id="line12" controlX="-1.0" controlY="-65.0" endX="62.0" endY="6.0" fill="#e2e685" layoutX="152.0" layoutY="73.0" startX="-50.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="DODGERBLUE" layoutX="370.0" layoutY="107.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+            <Polygon layoutX="203.0" layoutY="47.0" points="-6.0, 25.0, 4.0, 19.0, 11.0, 32.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Pane layoutX="427.0" layoutY="64.0" prefHeight="177.0" prefWidth="145.0" visible="false">
+               <children>
+                  <QuadCurve controlX="-33.0" controlY="71.0" endX="70.0" endY="1.0" fill="#e2e58500" layoutX="37.0" layoutY="120.0" startX="-1.0" startY="-50.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Polygon points="28.414794921875, 70.0, 42.0, 64.0, 42.0, 81.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+               </children>
+            </Pane>
+            <Circle fill="DODGERBLUE" layoutX="493.0" layoutY="109.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="DODGERBLUE" layoutX="427.0" layoutY="267.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
+            <Text fill="WHITE" layoutX="93.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="223.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="363.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="485.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+            <Pane layoutX="259.0" layoutY="87.0" prefHeight="41.0" prefWidth="85.0">
+               <children>
+                  <Line endX="69.0" endY="1.0" layoutX="6.0" layoutY="20.0" startY="1.0" />
+                  <Polygon layoutX="74.0" layoutY="8.0" points="-4.0, 22.0, 3.0, 13.0, -4.0, 4.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+               </children>
+            </Pane>
+            <Pane layoutX="169.0" layoutY="110.0" prefHeight="85.0" prefWidth="87.0">
+               <children>
+                  <Polygon layoutX="32.0" layoutY="2.0" points="-12.666671752929688, 12.0, -2.0, 24.0, -2.0, 12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <QuadCurve controlX="34.0" controlY="91.66665649414062" endX="88.0" endY="-4.333343505859375" fill="#e2e58500" layoutX="-9.0" layoutY="33.0" startX="34.0" startY="-17.0" stroke="BLACK" strokeType="INSIDE" />
+               </children>
+            </Pane>
+            <Text fill="WHITE" layoutX="420.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
+               <font>
+                  <Font size="27.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </center>
+   <right>
+      <SplitPane dividerPositions="0.7052023121387283" orientation="VERTICAL" prefHeight="348.0" prefWidth="185.0" BorderPane.alignment="CENTER">
+        <items>
+            <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #427299; -fx-fit-to-height: true;">
+               <content>
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="190.0" prefWidth="156.0" spacing="10.0" style="-fx-background-color: #427299;">
+                     <children>
+                        <Label id="tiuloEstados" text="ESTADOS" />
+                        <Label id="estados" text="1: Estado" />
+                        <Label id="estados" text="2: " />
+                        <Label id="estados" text="3: " />
+                        <Label id="estados" text="4: " />
+                        <Label id="estados" text="5: " />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #57A5E6;">
+               <children>
+                  <Label id="tituloIntegrantes" text="Integrantes" />
+                  <Label id="integrantesID" text="Alejandra Cotrina" />
+                  <Label id="integrantesID" text="Guillermo Veintimilla" />
+                  <Label id="integrantesID" text="Enrique Lopez" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" top="5.0" />
+               </padding>
+            </VBox>
+        </items>
+      </SplitPane>
+   </right>
+</BorderPane>
