@@ -2,6 +2,36 @@
  * Empty Stylesheet file.
  */
 
-.mainFxmlClass {
+.root{
+    -fx-background-color: #E33630;
+}
+#estados{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-text-align: center;
+    -fx-font-size: 18px;
+}
 
+#tiuloEstados{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-align: center;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+#integrantesID{
+    -fx-text-fill: #11001D;
+    -fx-font-family: "Arial Narrow";
+    -fx-text-align: center;
+    -fx-font-size: 14px;
+}
+
+#tituloIntegrantes{
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-text-align: center;
+    -fx-text-fill: #11001D;
+    -fx-font-size: 16px;
+    -fx-underline: true;
 }

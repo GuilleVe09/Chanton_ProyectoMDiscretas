@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" prefHeight="699.0" prefWidth="708.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaConfiguracionesController">
+<BorderPane prefHeight="699.0" prefWidth="708.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaConfiguracionesController">
    <top>
       <ImageView fitHeight="208.0" fitWidth="423.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>

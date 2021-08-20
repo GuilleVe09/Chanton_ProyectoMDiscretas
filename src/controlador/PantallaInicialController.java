@@ -25,12 +25,8 @@ import javafx.stage.Stage;
  * @author guill
  */
 public class PantallaInicialController implements Initializable {
-
-
     @FXML
     private Button btnComenzar;
-    @FXML
-    private BorderPane root;
 
     /**
      * Initializes the controller class.
@@ -39,7 +35,7 @@ public class PantallaInicialController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
-    
+   
     @FXML
     private void comenzar() {        
         try{
