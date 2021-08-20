@@ -123,13 +123,12 @@ public class PantallaConfiguracionesController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR, "No se ha podido guardar el numero de rondas");
             a.show();
             this.continuar = false;
-        }
-        
+        }   
     }
 
     // Poner validacion de que no se inserte un numero
     private void guardarLetraE(){
-        if (this.txtletraEscogida.getText().trim().matches("[a-zA-Z]")){
+        if (this.txtletraEscogida.getText().trim().matches("[a-eA-E]")){
             continuar = true;
             letra = this.txtletraEscogida.getText().toUpperCase().charAt(0);
             this.lblLetraEscogida.setText(Character.toString(letra));

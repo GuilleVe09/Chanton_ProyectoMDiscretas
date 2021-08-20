@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="390.0" maxWidth="390.0" minHeight="390.0" minWidth="390.0" prefHeight="375.0" prefWidth="390.0" stylesheets="@../estilo/estilo.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaInicialController">
+<BorderPane fx:id="root" maxHeight="390.0" maxWidth="390.0" minHeight="390.0" minWidth="390.0" prefHeight="375.0" prefWidth="390.0" stylesheets="@../estilo/estilo.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaInicialController">
    <top>
       <ImageView fitHeight="243.0" fitWidth="376.0" pickOnBounds="true" BorderPane.alignment="CENTER">
          <image>

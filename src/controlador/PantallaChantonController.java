@@ -5,7 +5,7 @@
  */
 package controlador;
 
-import static controlador.Main.palabras;
+import static interfaz.Main.palabras;
 import hilos.*;
 import static hilos.CuentaRegresiva.esperar;
 import java.io.IOException;
@@ -125,11 +125,11 @@ public class PantallaChantonController implements Initializable {
         controladorJuego = controlador;
         this.campos = campos;
         campos.add(0, "Letra");
-        mostrarCamposJugador(hbJugador,listaCamposJugador,jugador);
-        mostrarCamposJugador(this.hbComputadora,listaCamposComputador,PC);
+        mostrarEncabezado(hbJugador,listaCamposJugador,jugador);
+        mostrarEncabezado(this.hbComputadora,listaCamposComputador,PC);
     }
     
-    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, Jugador tipo){       
+    public void mostrarEncabezado(HBox encabezado, List<VBox> lista, Jugador tipo){       
         campos.stream().map((s) -> {
             VBox newCampo = new VBox(10);
             newCampo.setAlignment(Pos.TOP_RIGHT);
@@ -148,7 +148,6 @@ public class PantallaChantonController implements Initializable {
         });        
         agregarCampo(lista,tipo);
     }
-
     
     private void agregarCampo(List<VBox> lista, Jugador tipo){
         List<TextField> listTxtPC = new ArrayList<>();
@@ -221,7 +220,12 @@ public class PantallaChantonController implements Initializable {
         imgVisto.setFitWidth(8.0);        
         Button visto = new Button("",imgVisto);
         visto.setMinHeight(8);
-        vbBotones.getChildren().addAll(visto);
+        ImageView imgX = new ImageView(new Image("recursos/imagenes/x.png"));
+        imgX.setFitHeight(8.0);
+        imgX.setFitWidth(8.0);        
+        Button x = new Button("",imgX);
+        x.setMinHeight(8);
+        vbBotones.getChildren().addAll(visto,x);
         if(user.getNickname().equals("PC"))
             this.mapPC_.put(campo,txfJugador);
         else
@@ -234,9 +238,12 @@ public class PantallaChantonController implements Initializable {
     }
     
     private void sumarPuntos(TextField tfJugador, TextField tfpC){
+        boolean letraCorrecta = false;
+        if(!tfJugador.getText().trim().isEmpty())
+            letraCorrecta = tfJugador.getText().trim().toUpperCase().charAt(0)==this.lblLetra.getText().trim().charAt(0);
         if(tfpC.getText().trim().isEmpty())
             tfpC.setStyle("-fx-background-color: #FF6973");        
-        if(tfJugador.getText().trim().isEmpty() || tfJugador.getText().trim().toUpperCase().charAt(0)!=this.lblLetra.getText().trim().charAt(0))
+        if(tfJugador.getText().trim().isEmpty() || !letraCorrecta)
             tfJugador.setStyle("-fx-background-color: #FF6973");     
         else if(tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfJugador.getText().isEmpty() && !tfpC.getText().isEmpty()){
             this.PC.aumentarPuntaje(50);
@@ -285,9 +292,10 @@ public class PantallaChantonController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.show();
+            stage.show();            
             Stage myStage = (Stage) this.btnChanton.getScene().getWindow();
             myStage.close();
+            Platform.runLater(()->habilitar = false);
         }catch(IOException e){
             System.out.println(e.getMessage());
         }    
@@ -330,13 +338,13 @@ public class PantallaChantonController implements Initializable {
             i = 0;
             for(String str: campos.subList(1, campos.size())){
                 System.out.print("");
-                if(!habilitar)
-                    break;
                 esperarRandom();
-                List<String> listaPalabras = mapPal.get(str.toLowerCase().trim());
-                String palabra = listaPalabras.get(numeroAleatorioEnRango(0,listaPalabras.size()-1));
-                System.out.println(palabra);
-                camposCompu.get(i).setText(palabra);
+                if(habilitar){
+                    List<String> listaPalabras = mapPal.get(str.toLowerCase().trim());
+                    String palabra = listaPalabras.get(numeroAleatorioEnRango(0,listaPalabras.size()-1));
+                    System.out.println(palabra);
+                    camposCompu.get(i).setText(palabra);
+                }
                 i++;
             }
             if(!chanton)
