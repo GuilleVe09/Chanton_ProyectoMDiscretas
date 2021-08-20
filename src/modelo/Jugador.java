@@ -28,7 +28,7 @@ public class Jugador {
     }
     
     public void aumentarPuntaje(int puntaje){
-        puntaje+=puntaje;
+        this.puntaje+=puntaje;
     }
 
     public String getNickname() {

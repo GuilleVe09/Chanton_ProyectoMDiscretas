@@ -37,8 +37,6 @@ public class CuentaRegresiva extends Thread{
         this.regresiva.setVisible(false);   
         titulo.setTextAlignment(TextAlignment.CENTER);
         titulo.setText("¡¡Parenme la mano!!");
-        esperar(3);
-        this.titulo.setVisible(false);
     }
     
     public static void esperar(int segundos){

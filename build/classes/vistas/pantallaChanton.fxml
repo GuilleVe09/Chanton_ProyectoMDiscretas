@@ -10,10 +10,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="652.0" prefWidth="805.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
+<BorderPane prefHeight="652.0" prefWidth="868.0" stylesheets="@../estilo/estilo_conf.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PantallaChantonController">
    <left>
       <VBox alignment="CENTER" prefHeight="330.0" prefWidth="120.0" spacing="20.0" style="-fx-background-color: #427299;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -168,4 +172,82 @@
          </padding>
       </VBox>
    </center>
+   <right>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #427299;" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Circle radius="13.0" stroke="BLACK" strokeType="INSIDE">
+                     <fill>
+                        <RadialGradient centerX="0.5055555555555555" centerY="0.5095238095238095" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.02850877121090889" green="0.8552631735801697" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </fill>
+                  </Circle>
+                  <Label text="+100" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="+50">
+                     <graphic>
+                        <Circle radius="13.0" stroke="BLACK" strokeType="INSIDE">
+                           <fill>
+                              <RadialGradient centerX="0.4777777777777778" centerY="0.5" radius="0.5">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.9333333373069763" green="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </RadialGradient>
+                           </fill>
+                        </Circle>
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Circle radius="13.0" stroke="BLACK" strokeType="INSIDE">
+                     <fill>
+                        <RadialGradient centerX="0.5055555555555555" centerY="0.5095238095238095" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9736841917037964" green="0.11720272898674011" blue="0.11720272898674011" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </fill>
+                  </Circle>
+                  <Label text="+0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>

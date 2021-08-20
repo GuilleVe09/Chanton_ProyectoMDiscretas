@@ -1,0 +1,172 @@
+Dalmacio,nombre
+Dámaso,nombre
+Damián,nombre
+Daniel,nombre
+Darío,nombre
+David,nombre
+Demetrio,nombre
+Deodato,nombre
+Deogracias,nombre
+Desiderio,nombre
+Diego,nombre
+Dimas,nombre
+Diodoro,nombre
+Dionisio,nombre
+Domingo,nombre
+Donato,nombre
+Doroteo,nombre
+Dafne,nombre
+Dalila,nombre
+Dámaris,nombre
+Dánae,nombre
+Daniela,nombre
+Débora,nombre
+Diana,nombre
+Dolores,nombre
+Dorcas,nombre
+Dilma,nombre
+D'Itcainarena,apellido
+Dachs,apellido
+Dalmases,apellido
+Dalmau,apellido
+Dambolena,apellido
+Danot,apellido
+Danús,apellido
+Darder,apellido
+Darias,apellido
+Darner,apellido
+Darriba,apellido
+Das,apellido
+Dasca,apellido
+Daudet,apellido
+Dayres,apellido
+Daza,apellido
+De,apellido
+De Tierra,apellido
+Dean,apellido
+Deiros,apellido
+Del,apellido
+Delfín,apellido
+Delgado,apellido
+Delicao,apellido
+Dengra,apellido
+Descaire,apellido
+Descamps,apellido
+Deu,apellido
+Deutu,apellido
+Devesa,apellido
+Deyra,apellido
+Deyros,apellido
+Deyá,apellido
+Diago,apellido
+Diaz,apellido
+Diaz-Guerra,apellido
+Diego,apellido
+Diez-Blanco,apellido
+Dilmer,apellido
+Dimó,apellido
+Dios,apellido
+Dittrich,apellido
+Diz,apellido
+Diéguez,apellido
+Do,apellido
+Dobal,apellido
+Doblas,apellido
+Docampo,apellido
+Doiz,apellido
+Dolagaray,apellido
+Dolci,apellido
+Domenech,apellido
+Domingo,apellido
+Domínguez,apellido
+Donaire,apellido
+Donate,apellido
+Donate-Perona,apellido
+Donazar,apellido
+Doncel,apellido
+Dorado,apellido
+Dorca,apellido
+Dorich,apellido
+Dorronsoro,apellido
+Dos,apellido
+Doval,apellido
+Drago,apellido
+Duarte,apellido
+Dubón,apellido
+Dueñas,apellido
+Dumas,apellido
+Duque,apellido
+Duque-Espinal,apellido
+Durbau,apellido
+Durich,apellido
+Durro,apellido
+Durruti,apellido
+Durá,apellido
+Durán,apellido
+Dusola,apellido
+Dábalos,apellido
+Díaz-Acero,apellido
+Díaz-Borrego,apellido
+Díaz-Mateos,apellido
+Díaz-Varela,apellido
+Díaz-Zorita,apellido
+Díez,apellido
+Da,apellido
+Daguestán,ciudad/pais
+Dinamarca,ciudad/pais
+Dominica,ciudad/pais
+DACCA (BANGLADESH),ciudad/pais
+DAIMIEL (CIUDAD REAL),ciudad/pais
+DAKAR,ciudad/pais
+DALLAS,ciudad/pais
+DAMASCO,ciudad/pais
+DAS (GERONA),ciudad/pais
+DAVOS,ciudad/pais
+DAX,ciudad/pais
+DAYTONA,ciudad/pais
+DEIÀ (MALLORCA),ciudad/pais
+DELTEBRE (TARRAGONA),ciudad/pais
+DÉNIA,ciudad/pais
+DENVER,ciudad/pais
+DETROIT,ciudad/pais
+DEVON (INGLATERRA),ciudad/pais
+DEZA (SORIA),ciudad/pais
+DICASTILLO (NAVARRA),ciudad/pais
+DINAMARCA,ciudad/pais
+DISTRITO CASTELLANA NORTE,ciudad/pais
+DOHA,ciudad/pais
+DON BENITO,ciudad/pais
+DONOSTIA-SAN SEBASTIÁN,ciudad/pais
+DORTMUND,ciudad/pais
+DOS HERMANAS (SEVILLA),ciudad/pais
+DOSRIUS (BARCELONA),ciudad/pais
+DOUGLAS,ciudad/pais
+DRESDE,ciudad/pais
+DUBAI,ciudad/pais
+DUBLÍN,ciudad/pais
+DUBROVNIK,ciudad/pais
+DUEÑAS (PALENCIA),ciudad/pais
+DURANGO,ciudad/pais
+DUSSELDORF,ciudad/pais
+Dátil,fruta
+Damasco,fruta
+Dragonfly,fruta
+Durazno,fruta
+Durián,fruta
+Daman,animal
+Dátil de mar,animal
+Delfín,animal
+Delfín manchado,animal
+Delfín rosado,animal
+Demonio de Tasmania,animal
+Dentón,animal
+Diablo espinoso,animal
+Diamante de Gould,animal
+Didélfido,animal
+Dingo,animal
+Dorada,animal
+Dragón de Komodo,animal
+Dragón de mar,animal
+Dragón volador,animal
+Dromedario,animal
+Dugongo,animal

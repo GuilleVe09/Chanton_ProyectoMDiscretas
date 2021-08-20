@@ -11,17 +11,15 @@ import static hilos.CuentaRegresiva.esperar;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -88,10 +86,11 @@ public class PantallaChantonController implements Initializable {
     private List<VBox> listaCamposComputador;
     private Map<String,String> palabrasJugador;
     private Map<String,String> palabrasPC;
-    private List<TextField> listTxtJugador;
-    private List<TextField> listTxtPC;
     private boolean chanton;
-    
+    private Jugador jugador;
+    private Jugador PC;
+    private Map<String, TextField> mapPC_;
+    private Map<String,TextField> mapJugador_;
     private int i;
     /**
      * Initializes the controller class.
@@ -105,12 +104,13 @@ public class PantallaChantonController implements Initializable {
         this.btnChanton.setGraphic(imgChanton);
         listaCamposJugador = new ArrayList<>();
         listaCamposComputador = new ArrayList<>();    
-        listTxtPC = new ArrayList<>();
-        listTxtJugador = new ArrayList<>();
         palabrasJugador = new TreeMap<>();
         palabrasPC = new TreeMap<>();
         habilitar = true;
         chanton = false;
+        this.PC = new Jugador("PC");
+        mapPC_ = new HashMap<>();
+        mapJugador_ = new HashMap<>();
     }    
     
     
@@ -121,15 +121,16 @@ public class PantallaChantonController implements Initializable {
         txtRondas.setText("1");
         txtJugador.setText(jugador.getNickname());
         _txtJugador.setText(jugador.getNickname());
+        this.jugador = jugador;
         controladorJuego = controlador;
         this.campos = campos;
         campos.add(0, "Letra");
-        mostrarCamposJugador(hbJugador,listaCamposJugador,"Jugador");
-        mostrarCamposJugador(this.hbComputadora,listaCamposComputador,"PC");
+        mostrarCamposJugador(hbJugador,listaCamposJugador,jugador);
+        mostrarCamposJugador(this.hbComputadora,listaCamposComputador,PC);
     }
     
-    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, String tipo){       
-        for(String s: campos){
+    public void mostrarCamposJugador(HBox encabezado, List<VBox> lista, Jugador tipo){       
+        campos.stream().map((s) -> {
             VBox newCampo = new VBox(10);
             newCampo.setAlignment(Pos.TOP_RIGHT);
             HBox hbEncabezadoJugador = new HBox(10);
@@ -138,16 +139,19 @@ public class PantallaChantonController implements Initializable {
             txt.setWrappingWidth(130);
             hbEncabezadoJugador.getChildren().addAll(txt,new Line(0.0f, 0.0f, 0.0f, 30.0f));
             newCampo.getChildren().add(hbEncabezadoJugador);
+            return newCampo;
+        }).map((newCampo) -> {
             lista.add(newCampo);
+            return newCampo;
+        }).forEachOrdered((newCampo) -> {
             encabezado.getChildren().add(newCampo);
-        }        
+        });        
         agregarCampo(lista,tipo);
     }
 
     
-    private void agregarCampo(List<VBox> lista, String tipo){
-        listTxtPC.clear();
-        listTxtJugador.clear();
+    private void agregarCampo(List<VBox> lista, Jugador tipo){
+        List<TextField> listTxtPC = new ArrayList<>();
         habilitar = true;
         List<VBox> botones = new ArrayList<>();
         HBox newLetra = new HBox(10);
@@ -157,48 +161,48 @@ public class PantallaChantonController implements Initializable {
         txtLetra.setAlignment(Pos.CENTER);
         newLetra.getChildren().addAll(txtLetra,new Line(0.0f, 0.0f, 0.0f, 30.0f));
         lista.get(0).getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newLetra);     
-        for(VBox vb: lista.subList(1, lista.size())){
+        lista.subList(1, lista.size()).forEach((vb) -> {
             HBox newRonda = new HBox(10);
             newRonda.setAlignment(Pos.CENTER_RIGHT);
             TextField txfJugador = new TextField();
-            if ("PC".equals(tipo)){
+            if ("PC".equals(tipo.getNickname())){
                 txfJugador.setStyle("-fx-background-color: BLACK;-fx-text-fill: black");
                 listTxtPC.add(txfJugador);
-            }else
-                listTxtJugador.add(txfJugador);
+            }
             HBox hb = (HBox)vb.getChildren().get(0);
-            VBox vbBotones = vbBotones(txfJugador, ((Text)hb.getChildren().get(0)).getText());
+            VBox vbBotones = vbBotones(txfJugador, ((Text)hb.getChildren().get(0)).getText(), tipo);
             botones.add(vbBotones);
             newRonda.getChildren().addAll(txfJugador,new Line(0.0f, 0.0f, 0.0f, 30.0f));
             newRonda.setFocusTraversable(true);
-            vb.getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newRonda);     
-        }       
-        if ("PC".equals(tipo))
+            vb.getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newRonda);
+        });       
+        if ("PC".equals(tipo.getNickname()))
             iniciarJuegoPC(listTxtPC);
         threadBloquear(lista,botones);        
     }
     
-    private void threadBloquear(List<VBox> lista,List<VBox> botones){        
+    private void threadBloquear(List<VBox> lista,List<VBox> botones){
         Thread tr = new Thread(()->{
             while(habilitar){
-                System.out.println(!habilitar);
-                if(!habilitar){
-                    System.out.println("chanton");
-                    Runnable updater = () -> {
-                        int cont = 0;
-                        for(VBox vb: lista.subList(1, lista.size())){
-                            String campo = ((Text)(((HBox)vb.getChildren().get(0)).getChildren().get(0))).getText();
-                            System.out.println(campo.toLowerCase().trim());
-                            HBox ultimo = ((HBox)vb.getChildren().get(vb.getChildren().size()-1));                            
-                            ultimo.getChildren().remove(1);
-                            bloquearTextField((TextField)ultimo.getChildren().get(0),habilitar);
-                            ultimo.getChildren().addAll(botones.get(cont),new Line(0.0f, 0.0f, 0.0f, 30.0f));
-                            cont++;
-                        }
-                    };
-                    Platform.runLater(updater);
-                }
+                System.out.print("");
             }
+            if(!habilitar){
+                Runnable updater = () -> {
+                    int cont = 0;
+                    for(VBox vb: lista.subList(1, lista.size())){
+                        String campo = ((Text)(((HBox)vb.getChildren().get(0)).getChildren().get(0))).getText();
+                        //System.out.println(campo.toLowerCase().trim());
+                        HBox ultimo = ((HBox)vb.getChildren().get(vb.getChildren().size()-1));                            
+                        ultimo.getChildren().remove(1);
+                        bloquearTextField((TextField)ultimo.getChildren().get(0),habilitar);
+                        ultimo.getChildren().addAll(botones.get(cont),new Line(0.0f, 0.0f, 0.0f, 30.0f));
+                        cont++;
+                    }
+                };
+                Platform.runLater(updater);
+            }
+            esperar(3);
+            this.txtChanton.setVisible(false);
         });
         tr.setDaemon(true);
         tr.start();         
@@ -210,37 +214,56 @@ public class PantallaChantonController implements Initializable {
         e.setStyle("-fx-background-color: white");
     }
 
-    private VBox vbBotones(TextField txfJugador, String campo){
+    private VBox vbBotones(TextField txfJugador, String campo, Jugador user){
         VBox vbBotones = new VBox(5);
         ImageView imgVisto = new ImageView(new Image("recursos/imagenes/visto.png"));
         imgVisto.setFitHeight(8.0);
-        imgVisto.setFitWidth(8.0);
-        ImageView imgX = new ImageView(new Image("recursos/imagenes/x.png"));
-        imgX.setFitHeight(8.0);
-        imgX.setFitWidth(8.0);
+        imgVisto.setFitWidth(8.0);        
         Button visto = new Button("",imgVisto);
         visto.setMinHeight(8);
-        Button x = new Button("",imgX);
-        x.setMinHeight(8);
-        vbBotones.getChildren().addAll(visto,x);
+        vbBotones.getChildren().addAll(visto);
+        if(user.getNickname().equals("PC"))
+            this.mapPC_.put(campo,txfJugador);
+        else
+            this.mapJugador_.put(campo, txfJugador);       
+        visto.setOnAction(e->{
+            sumarPuntos(mapJugador_.get(campo),mapPC_.get(campo));
+            visto.setDisable(true);
+        });
         return vbBotones;
     }
     
-    private void sumarPuntos(){
-        
+    private void sumarPuntos(TextField tfJugador, TextField tfpC){
+        if(tfpC.getText().trim().isEmpty())
+            tfpC.setStyle("-fx-background-color: #FF6973");        
+        if(tfJugador.getText().trim().isEmpty() || tfJugador.getText().trim().toUpperCase().charAt(0)!=this.lblLetra.getText().trim().charAt(0))
+            tfJugador.setStyle("-fx-background-color: #FF6973");     
+        else if(tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfJugador.getText().isEmpty() && !tfpC.getText().isEmpty()){
+            this.PC.aumentarPuntaje(50);
+            this.jugador.aumentarPuntaje(50);
+            tfJugador.setStyle("-fx-background-color: #FAF49A");
+            tfpC.setStyle("-fx-background-color: #FAF49A");
+        }else if(!tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfJugador.getText().isEmpty() && !tfpC.getText().isEmpty()){
+            this.PC.aumentarPuntaje(100);
+            this.jugador.aumentarPuntaje(100);
+            tfJugador.setStyle("-fx-background-color: #5BF0B6");
+            tfpC.setStyle("-fx-background-color: #5BF0B6");
+        }
+        txtPuntajeJugador.setText(String.valueOf(this.jugador.getPuntaje()));
+        txtPuntajeCompu.setText(String.valueOf(this.PC.getPuntaje()));
     }
-    
+
     @FXML
     private void pararMano(ActionEvent event) {
         chanton = true;
         this.txtChanton.setVisible(true);
         this.txtTiempo.setVisible(true);
         this.btnChanton.setDisable(true);
-        CuentaRegresiva cr = new CuentaRegresiva(10,this.txtTiempo,this.txtChanton);
+        CuentaRegresiva cr = new CuentaRegresiva(5,this.txtTiempo,this.txtChanton);
         cr.setDaemon(true);
         cr.start();
         Thread tr = new Thread(()->{
-            esperar(10);                
+            esperar(5);                
             int value = 1;
             if (Integer.parseInt(this.txtTotalRondas.getText())==Integer.parseInt(this.txtRondas.getText()))
                 value = 0;
@@ -297,8 +320,8 @@ public class PantallaChantonController implements Initializable {
     }
     
     private void nuevaLetra(){
-        agregarCampo(listaCamposJugador,"Jugador");
-        agregarCampo(listaCamposComputador,"PC");
+        agregarCampo(listaCamposJugador,jugador);
+        agregarCampo(listaCamposComputador,PC);
     }
     
     private void iniciarJuegoPC(List<TextField> camposCompu){        
@@ -306,6 +329,7 @@ public class PantallaChantonController implements Initializable {
         Thread tr = new Thread(() -> {
             i = 0;
             for(String str: campos.subList(1, campos.size())){
+                System.out.print("");
                 if(!habilitar)
                     break;
                 esperarRandom();
