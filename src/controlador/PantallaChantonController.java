@@ -378,11 +378,12 @@ public class PantallaChantonController implements Initializable {
     private void iniciarJuegoPC(List<TextField> camposCompu){     
         Map<String,List<String>> mapPal = palabras.get(this.lblLetra.getText().trim().toUpperCase().charAt(0));        
         System.out.println(mapPal);
+        esperarRandom(5000);
         Thread tr = new Thread(() -> {
             i = 0;
             for(String str: campos.subList(1, campos.size()-1)){
                 System.out.print("");
-                esperarRandom();
+                esperarRandom(10000);
                 if(habilitar){
                     List<String> listaPalabras = mapPal.get(str.toLowerCase().trim());
                     String palabra = listaPalabras.get(numeroAleatorioEnRango(0,listaPalabras.size()-1));
@@ -398,9 +399,9 @@ public class PantallaChantonController implements Initializable {
         tr.start();
     }
     
-    private void esperarRandom(){
+    private void esperarRandom(int n){
         Random rd = new Random();
-        int tiempo = rd.nextInt(10000)+500;
+        int tiempo = rd.nextInt(n)+500;
         try {
             Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
@@ -430,18 +431,5 @@ public class PantallaChantonController implements Initializable {
         }
         a.show();
     }
-    
-    public void closeWindows(){        
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaInicial.fxml"));
-            Parent root = loader.load();
-            PantallaInicialController controlador = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }          
-    }
+
 }
