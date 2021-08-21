@@ -8,6 +8,7 @@ package controlador;
 import static interfaz.Main.palabras;
 import hilos.*;
 import static hilos.CuentaRegresiva.esperar;
+import static interfaz.Main.maquina;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -99,6 +100,8 @@ public class PantallaChantonController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -323,7 +326,7 @@ public class PantallaChantonController implements Initializable {
     }
 
     @FXML
-    private void regresar(ActionEvent event) {
+    public void regresar(ActionEvent event) {
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaInicial.fxml"));
             Parent root = loader.load();
@@ -334,6 +337,7 @@ public class PantallaChantonController implements Initializable {
             stage.show();            
             Stage myStage = (Stage) this.btnChanton.getScene().getWindow();
             myStage.close();
+            maquina.recibirParametros(31);
             Platform.runLater(()->habilitar = false);
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -427,4 +431,17 @@ public class PantallaChantonController implements Initializable {
         a.show();
     }
     
+    public void closeWindows(){        
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaInicial.fxml"));
+            Parent root = loader.load();
+            PantallaInicialController controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        }catch(IOException e){
+            System.out.println(e.getMessage());
+        }          
+    }
 }

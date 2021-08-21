@@ -6,12 +6,10 @@
 package interfaz;
 
 
+import controlador.MaquinaEstadoController;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,8 +18,10 @@ import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -31,6 +31,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
+    public static MaquinaEstadoController maquina;
     public static Map<Character,HashMap<String,List<String>>> palabras;
     @Override
     public void start(Stage primaryStage) {
@@ -44,16 +45,28 @@ public class Main extends Application{
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             primaryStage.show();
+                        
+            Stage stageMaquina = new Stage();
+            FXMLLoader loaderMaquina = new FXMLLoader();
+            loaderMaquina.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
+            Pane ventanaMaquina = (Pane) loaderMaquina.load();
             
-            Stage stage = new Stage();
-            FXMLLoader loader2 = new FXMLLoader();
-            loader2.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
-            Pane ventana2 = (Pane) loader2.load();
+            maquina = loaderMaquina.getController();
+            maquina.recibirParametros(1);
+            primaryStage.setOnCloseRequest(e->stageMaquina.close());
             
-            Scene scene2 = new Scene(ventana2);
-            scene2.setRoot(ventana2);
-            stage.setScene(scene2);
-            stage.show();
+            Scene sceneMaquina = new Scene(ventanaMaquina);            
+            sceneMaquina.setRoot(ventanaMaquina);
+            stageMaquina.setScene(sceneMaquina);
+            
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+ 
+            //set Stage boundaries to the lower right corner of the visible bounds of the main screen
+            stageMaquina.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 710);
+            stageMaquina.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 510);
+            stageMaquina.setWidth(710);
+            stageMaquina.setHeight(510);
+            stageMaquina.show();
             
             
         }catch(IOException e){

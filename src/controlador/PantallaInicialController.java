@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import static interfaz.Main.maquina;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -30,6 +30,8 @@ public class PantallaInicialController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,11 +44,15 @@ public class PantallaInicialController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaConfiguraciones.fxml"));
             Parent root = loader.load();
             PantallaConfiguracionesController controlador = loader.getController();
+            maquina.recibirParametros(12);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
+            scene.getWindow().setX(0);
             stage.show();
-            stage.setOnCloseRequest(e -> controlador.closeWindows());
+            stage.setOnCloseRequest(e -> {
+                controlador.closeWindows();
+                maquina.recibirParametros(21);});
             Stage myStage = (Stage) this.btnComenzar.getScene().getWindow();
             myStage.close();
             

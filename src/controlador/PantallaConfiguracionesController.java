@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import static interfaz.Main.maquina;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class PantallaConfiguracionesController implements Initializable {
     private Spinner<Integer> spnNumRondas;
     
     //Instancia del controlador
-    PantallaConfiguracionesController controladorJuego;
+    private PantallaConfiguracionesController controladorJuego;
     
     private int nRondas;
     private Character letra;
@@ -78,12 +79,13 @@ public class PantallaConfiguracionesController implements Initializable {
     private boolean continuar;    
     private List<String> camposSeleccionados;        
     private Jugador jugador;
-    
-        
+           
     /**➛
      * →
      * ☞
      * Initializes the controller class. 
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -109,12 +111,7 @@ public class PantallaConfiguracionesController implements Initializable {
             System.out.println(e.getMessage());
         }          
     }
-    
-    
-    public void exitApplication(ActionEvent event) {
-        Platform.exit();
-    }
-
+        
     private void guardarRondas() {
         try{
             nRondas = this.spnNumRondas.getValue();
@@ -133,7 +130,7 @@ public class PantallaConfiguracionesController implements Initializable {
             letra = this.txtletraEscogida.getText().toUpperCase().charAt(0);
             this.lblLetraEscogida.setText(Character.toString(letra));
         }else{
-            Alert a = new Alert(Alert.AlertType.ERROR, "Ingrese unicamente una letra");
+            Alert a = new Alert(Alert.AlertType.ERROR, "Ingrese unicamente una letra [A-"+listaLetras[listaLetras.length-1]+"]");
             a.show();
             this.lblLetraEscogida.setText("-");
             this.continuar = false;
@@ -151,8 +148,13 @@ public class PantallaConfiguracionesController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage3 = new Stage();
             stage3.setScene(scene);
+            maquina.recibirParametros(23);
+            stage3.setOnCloseRequest(e->{
+                controladorChanton.regresar(new ActionEvent());
+                maquina.recibirParametros(31);
+            });
             stage3.show();
-            
+            scene.getWindow().setX(0);
             Stage myStage = (Stage) this.btnIniciarJuego.getScene().getWindow();
             myStage.close();
         }catch(IOException e){
@@ -181,6 +183,7 @@ public class PantallaConfiguracionesController implements Initializable {
             guardarRondas();
             guardarLetraE();
             this.btnIniciarJuego.setDisable(!continuar);
+            maquina.recibirParametros(2);
         }            
     }
     //Valida que los textField no esten vacios 
@@ -213,12 +216,15 @@ public class PantallaConfiguracionesController implements Initializable {
     
     private void agregarCampo(String str){
         this.camposSeleccionados.add(str);
+        this.btnIniciarJuego.setDisable(true);            
         this.continuar = true;
     }
     
     private void eliminarCampo(String str){
         this.camposSeleccionados.remove(str);
+        this.btnIniciarJuego.setDisable(true);      
         if (this.camposSeleccionados.isEmpty()){
+            this.btnIniciarJuego.setDisable(true);            
             Alert a = new Alert(Alert.AlertType.ERROR, "Debe seleccionar al menos un campo");
             a.setHeaderText("Seleccione uno o mas campos para el juego");
             a.show();
