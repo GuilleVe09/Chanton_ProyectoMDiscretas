@@ -100,7 +100,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="S7" layoutX="273.0" layoutY="243.0" prefHeight="45.0" prefWidth="50.0">
+            <Pane fx:id="S7" layoutX="277.0" layoutY="238.0" prefHeight="45.0" prefWidth="50.0">
                <children>
                   <Circle fill="DODGERBLUE" layoutX="26.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                   <Text fill="WHITE" layoutX="18.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7">
