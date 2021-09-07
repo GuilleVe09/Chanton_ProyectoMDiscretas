@@ -467,7 +467,7 @@ public class PantallaChantonController implements Initializable {
     
     private void esperarRandom(int n){
         Random rd = new Random();
-        int tiempo = rd.nextInt(n)+500;
+        int tiempo = rd.nextInt(n)+1500;
         try {
             Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
