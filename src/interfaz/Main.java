@@ -6,8 +6,8 @@
 package interfaz;
 
 
-import controlador.MaquinaEstadoController;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +18,8 @@ import java.util.Scanner;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -65,14 +63,14 @@ public class Main extends Application{
                 while(input.hasNextLine()){
                     String line = input.nextLine();
                     String[] partes = line.split(",");
-                    List palabras = mapa.getOrDefault(partes[1], new LinkedList());
-                    palabras.add(partes[0]);
-                    mapa.put(partes[1], palabras);
+                    List palabras_ = mapa.getOrDefault(partes[1], new LinkedList());
+                    palabras_.add(partes[0]);
+                    mapa.put(partes[1], palabras_);
                 }
                 mapaFinal.put(Character.toUpperCase(arch.toUpperCase().charAt(0)), mapa);
                 input.close();
             }
-        }catch(Exception e){
+        }catch(FileNotFoundException e){
             System.out.println(e.getMessage());
         }
         return mapaFinal;

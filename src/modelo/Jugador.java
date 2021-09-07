@@ -5,6 +5,8 @@
  */
 package modelo;
 
+import java.util.Objects;
+
 /**
  *
  * @author guill
@@ -49,5 +51,34 @@ public class Jugador {
     public void setPuntajeRonda(int puntajeRonda) {
         this.puntajeRonda = puntajeRonda;
     }
+
+    @Override
+    public String toString() {
+        return "Jugador{" + "nickname=" + nickname + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 31 * hash + Objects.hashCode(this.nickname);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Jugador other = (Jugador) obj;
+        return Objects.equals(this.nickname, other.nickname);
+    }
+    
+    
 
 }

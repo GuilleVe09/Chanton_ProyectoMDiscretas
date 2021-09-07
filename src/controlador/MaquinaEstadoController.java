@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -14,10 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.Pane;
@@ -31,7 +27,7 @@ import javafx.stage.Stage;
  */
 public class MaquinaEstadoController implements Initializable {    
     @FXML
-    private VBox vbEstados;    
+    private VBox vbEstados;
     @FXML
     private Pane S4;    
     @FXML
@@ -50,6 +46,10 @@ public class MaquinaEstadoController implements Initializable {
     private Pane SA2;
     @FXML
     private Pane SB3;
+    @FXML
+    private Pane lnA40;
+    @FXML
+    private Pane lnB40;
     @FXML
     private Pane lnA01;
     @FXML
@@ -76,20 +76,16 @@ public class MaquinaEstadoController implements Initializable {
     private Pane lnB23;
     @FXML
     private Pane lnB34;
-    @FXML
-    private Pane lnA40;
-    @FXML
-    private Pane lnB40;
-    
-    private int numEstadoI;
-    private int numEstadoF;
-    private MaquinaEstadoController instacia;   
-    private char letra;
+                
     //valor efecto
     private double i;
-    private List<Pane> paneles;
+    private int estadoI;
+    private int estadoF;
+    private int num;
+    private MaquinaEstadoController instacia;   
+    private List<Pane> estados;
     private List<String> indices;
-    
+    private char letra;
     
     /**
      * Initializes the controller class.
@@ -99,85 +95,121 @@ public class MaquinaEstadoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        num = 0;
         instacia = this;
-        paneles = Arrays.asList(S0,lnA01,SA1,lnA1,lnA12,SA2,lnA2,lnA23,SA3,lnA3,lnA34,lnA40,lnB01,SB1,lnB1,lnB12,SB2,lnB2,lnB23,SB3,lnB3,lnB34,lnB40,S4);        
-        indices = Arrays.asList("S0","lnA01","SA1","lnA1","lnA12","SA2","lnA2","lnA23","SA3","lnA3","lnA34","lnA40","lnB01","SB1","lnB1","lnB12","SB2","lnB2","lnB23","SB3","lnB3","lnB34","lnB40","S4");
+        estados = Arrays.asList(lnB01,S0,SA1,SB2,SA3,SB1,SA2,SB3,lnA40,lnB40,S4,lnA01,lnA12,lnA23,lnA34,lnB1,lnB2,lnB3,lnA3,lnA2,lnA1,lnB12,lnB23,lnB34);
+        indices = Arrays.asList("lnB01","S0","SA1","SB2","SA3","SB1","SA2","SB3","lnA40","lnB40","S4","lnA01","lnA12","lnA23","lnA34","lnB1","lnB2","lnB3","lnA3","lnA2","lnA1","lnB12","lnB23","lnB34");
         ocultar();
     }    
     
     private void ocultar(){           
-        paneles.forEach(e->{
-            e.setVisible(false);
-        });
+        estados.forEach(e->e.setVisible(false));
     }
     
-    public void recibirParametros(int numEstadoI, int numEstadoF ,char letra){
-        this.numEstadoI = numEstadoI;
-        this.numEstadoF = numEstadoF;
+    public void cambiarLetra(char letra){
         this.letra = letra;
-        if(numEstadoI == 0 && numEstadoF ==0){
-            iniciarEstado(0);
-        }else{
-            analizarAvance();
-        }     
-    }
-    /*avanzar(Pane inicial, Pane linea, Pane fin, int num)*/
-    private void analizarAvance(){
-        int indPanelI = indices.indexOf("S"+letra+numEstadoI);
-        int indLinea;
-        if(numEstadoI == numEstadoF)
-            indLinea = indices.indexOf("ln"+numEstadoI);
-        else
-            indLinea = indices.indexOf("ln"+letra+numEstadoI+""+numEstadoF);
-        
-        int indPanelF = indices.indexOf("S"+letra+numEstadoI+""+numEstadoF);
-        
-        avanzar(paneles.get(indPanelI),paneles.get(indLinea),paneles.get(indPanelF),numEstadoI);
     }
     
-    private void iniciarEstado(int estado){
-        paneles.get(0).setVisible(true);
-        Label lbl = new Label("S0: LETRA ESCOGIDA");
-        lbl.setWrapText(true);
-        this.vbEstados.getChildren().add(lbl);
+    public void recibirParametros(char letra){
+        this.letra = letra;    
+        num = 0;
+        empezarMaquina();
+    }
+    
+    public void cambiarEstado(int inicio, int fin, char letraLineaRecursiva){
+        analizarAvance(inicio, fin,letraLineaRecursiva);
+    }
+    
+    private void analizarAvance(int inicio, int fin, char letraLineaRecursiva){        
+        int indPaneI=0;
+        int indLine=0;
+        int indPaneF=-1;
+        
+        if(inicio == fin){
+            indPaneI = indices.indexOf("S"+letra+""+inicio);
+            indLine = indices.indexOf("ln"+letra+""+inicio);
+            System.out.println("S"+letra+"inicio");
+            System.out.println("ln"+letra+""+inicio);
+        }
+        else if(inicio==0){
+            indPaneI = indices.indexOf("S0");
+            indLine = indices.indexOf("ln"+letraLineaRecursiva+"0"+fin);
+            indPaneF = indices.indexOf("S"+letra+""+fin);
+        }        
+        else if(inicio<4 && fin<4){
+            indPaneI = indices.indexOf("S"+letra+""+inicio);
+            indLine = indices.indexOf("ln"+letra+""+inicio+""+fin);
+            indPaneF = indices.indexOf("S"+letra+""+fin);
+        }else if(inicio<4 && fin == 4){
+            indPaneI = indices.indexOf("S4");
+            indLine = indices.indexOf("ln"+letra+""+inicio+""+fin);
+            indPaneF = indices.indexOf("S"+letra+""+fin);
+        }else{
+            indPaneI = indices.indexOf("S4");
+            indLine = indices.indexOf("ln"+letra+"40");
+            indPaneF = indices.indexOf("S0");
+            System.out.println("Prueba "+indPaneI);
+        }
+        
+        Pane pInicial = estados.get(indPaneI);
+        Pane linea = estados.get(indLine);
+        Pane pFinal = null;
+        if(indPaneF!=-1)
+            pFinal = estados.get(indPaneF);
+        avanzar(pInicial,linea, pFinal);
+    }
+    
+    private void agregarEstado(){
+        if(!SA1.isVisible())
+            vbEstados.getChildren().add(new Label("S4: Nombre con A"));
+        else if(!SA2.isVisible())
+            vbEstados.getChildren().add(new Label("S5: Apellido con A"));
+        else if(!SA3.isVisible())
+            vbEstados.getChildren().add(new Label("S6: País con A"));
+        else if(!S4.isVisible())
+            vbEstados.getChildren().add(new Label("S7: Ronda terminada"));
+        else if(!SB1.isVisible())
+            vbEstados.getChildren().add(new Label("S1: Nombre con B"));
+        else if(!SB2.isVisible())
+            vbEstados.getChildren().add(new Label("S2: Apellido con A"));
+        else if(!SB3.isVisible())
+            vbEstados.getChildren().add(new Label("S3: País con B"));
+    }
+    
+    private void avanzar(Pane paneI, Pane linea, Pane paneF){
+        paneI.setVisible(true);
+        linea.setVisible(true);
+        if(paneF!=null)
+            paneF.setVisible(true);
+        agregarEstado();
+    }
+    
+    private void empezarMaquina(){
+        num = 1;
+        if(!S0.isVisible())
+            vbEstados.getChildren().add(new Label("S0: Letra escogida"));
+        S0.setVisible(true);
         Glow glow = new Glow();
         Thread tr = new Thread(()->{
-            while (numEstadoI==estado){                
-                for(i=0.1; i<=1;i=i+0.2){
+            while(num == 1){
+                for (i = 0.1; i <= 1; i+=0.2) {
                     glow.setLevel(i);
                     esperar(3);
                     Platform.runLater(()->{
-                        paneles.get(0).setEffect(glow);                        
+                        S0.setEffect(glow);
                     });
                 }
             }
-            eliminarEfectos();            
+            quitarEfectos();
         });
         tr.setDaemon(true);
-        tr.start(); 
-    }
+        tr.start();        
+    }    
     
-    private void eliminarEfectos(){
-        Platform.runLater(()->{
-            paneles.forEach(e->{
-                e.setEffect(null);
-                e.setOpacity(1);
-            });
+    private void quitarEfectos(){
+        this.estados.forEach(e->{
+            e.setEffect(null);
         });
-    }
-    
-    public void closeWindows(){        
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/maquinaEstado.fxml"));
-            Parent root = loader.load();
-            PantallaInicialController controlador = loader.getController();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        }catch(IOException e){
-            System.out.println(e.getMessage());
-        }          
     }
 
     private void esperar(int i) {
@@ -188,34 +220,10 @@ public class MaquinaEstadoController implements Initializable {
         }
     }
     
-    private void avanzar(Pane inicial, Pane linea, Pane fin, int num){      
-        inicial.setVisible(true);
-        linea.setVisible(true);
-        fin.setVisible(true);
-        Glow glow = new Glow();
-        Thread tr = new Thread(()->{
-            while (numEstadoI==num){                
-                for(i=0.1; i<=1;i=i+0.2){
-                    glow.setLevel(i);
-                    esperar(3);
-                    Platform.runLater(()->{
-                        inicial.setEffect(glow);
-                        linea.setEffect(glow);
-                        if(inicial!=fin)
-                            fin.setEffect(glow);
-                        linea.setOpacity(i);
-                    });
-                }
-            }
-            eliminarEfectos();
-        });
-        tr.setDaemon(true);
-        tr.start();        
-    }
-
-   
-    public void cerrarMaquina(){
-        Stage myStage = (Stage) this.S0.getScene().getWindow();
+    public void cerrarVentana(){
+        Stage myStage = (Stage) this.S4.getScene().getWindow();
         myStage.close();
     }
+    
+    
 }

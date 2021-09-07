@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import interfaz.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,7 +29,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import modelo.Jugador;
 
@@ -71,12 +77,13 @@ public class PantallaConfiguracionesController implements Initializable {
     public static MaquinaEstadoController maquina;
     private int nRondas;
     private Character letra;
-    private final char[] listaLetras = {'A','B','C','D','E'};
-    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais");
+    private final char[] listaLetras = {'A','B'};
+    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais","Fruta","Animal");
     private boolean continuar;    
     private List<String> camposSeleccionados;        
     private Jugador jugador;
-           
+    private int primeraVez;
+    
     /**➛
      * →
      * ☞
@@ -87,6 +94,7 @@ public class PantallaConfiguracionesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        primeraVez = 0;
         controladorJuego = this;
         continuar = false;
         camposSeleccionados = new ArrayList<>();
@@ -122,7 +130,7 @@ public class PantallaConfiguracionesController implements Initializable {
 
     // Poner validacion de que no se inserte un numero
     private void guardarLetraE(){
-        if (this.txtletraEscogida.getText().trim().matches("[a-eA-E]")){
+        if (this.txtletraEscogida.getText().trim().matches("[a-bA-B]")){
             continuar = true;
             letra = this.txtletraEscogida.getText().toUpperCase().charAt(0);
             this.lblLetraEscogida.setText(Character.toString(letra));
@@ -144,22 +152,22 @@ public class PantallaConfiguracionesController implements Initializable {
             controladorChanton.recibeParametros(controladorJuego, String.valueOf(nRondas), Character.toString(letra),this.camposSeleccionados,this.jugador);
             Scene scene = new Scene(root);
             Stage stage3 = new Stage();
-            stage3.setScene(scene);
+            stage3.setScene(scene);            
             stage3.setOnCloseRequest(e->{
                 controladorChanton.regresar(new ActionEvent());
-                controladorChanton.maquina.cerrarMaquina();
+                maquina.cerrarVentana();
             });
             stage3.show();
-            //scene.getWindow().setX(0);
+            scene.getWindow().setX(0);
             Stage myStage = (Stage) this.btnIniciarJuego.getScene().getWindow();
-            myStage.close();         
+            myStage.close();
         }catch(IOException e){
             System.out.println(e.getMessage());
         }catch(Exception e){
             System.out.println(e.getMessage());
         }      
     }
-    
+
     @FXML
     private void escogerLetraAlAzar() {
         int indiceAleatorio = numeroAleatorioEnRango(0, listaLetras.length - 1);
@@ -179,6 +187,12 @@ public class PantallaConfiguracionesController implements Initializable {
             guardarRondas();
             guardarLetraE();
             this.btnIniciarJuego.setDisable(!continuar);
+            if(primeraVez == 0){
+                iniciarMaquina();
+                primeraVez++;
+            }                
+            else
+                maquina.recibirParametros(letra);
         }            
     }
     //Valida que los textField no esten vacios 
@@ -196,8 +210,8 @@ public class PantallaConfiguracionesController implements Initializable {
         this.jugador = new Jugador(this.txtnickname.getText().trim());
     }    
     
-    private void mostrarCamposDisponibles(){        
-        campos.forEach((s) -> {
+    private void mostrarCamposDisponibles(){
+        campos.subList(0, 3).stream().map((s) -> {
             CheckBox ch = new CheckBox(s);
             this.vbCamposJuego.getChildren().add(ch);
             ch.setOnAction(e->{
@@ -206,6 +220,8 @@ public class PantallaConfiguracionesController implements Initializable {
                 else
                     eliminarCampo(s);
             });
+            return ch;
+        }).forEachOrdered((ch) -> {
             ch.fire();
         });
     }
@@ -228,4 +244,30 @@ public class PantallaConfiguracionesController implements Initializable {
         }
     }
 
+    private void iniciarMaquina(){
+            FXMLLoader loaderMaquina = new FXMLLoader();       
+            loaderMaquina.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
+            Pane ventanaMaquina;
+        try {
+            ventanaMaquina = (Pane) loaderMaquina.load();
+            Stage stageMaquina = new Stage();                        
+            maquina = loaderMaquina.getController();
+            maquina.recibirParametros(letra);
+            Scene sceneMaquina = new Scene(ventanaMaquina);            
+            sceneMaquina.setRoot(ventanaMaquina);
+            stageMaquina.setScene(sceneMaquina);
+            
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            
+            //set Stage boundaries to the lower right corner of the visible bounds of the main screen
+            stageMaquina.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 750);
+            stageMaquina.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 550);
+            stageMaquina.setWidth(740);
+            stageMaquina.setHeight(540);
+            stageMaquina.show();        
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaConfiguracionesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }      
 }
