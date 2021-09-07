@@ -8,7 +8,7 @@ package controlador;
 import static interfaz.Main.palabras;
 import hilos.*;
 import static hilos.CuentaRegresiva.esperar;
-import static interfaz.Main.maquina;
+import interfaz.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,12 +19,15 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -36,11 +39,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import modelo.Jugador;
 
@@ -97,7 +101,10 @@ public class PantallaChantonController implements Initializable {
     private Map<String,TextField> mapJugador_;
     private int i;
     private TextField txtTotalRondaPC;
-    
+    private List<HBox> listaResultado;
+    private int indice;
+    private int estados;
+    public MaquinaEstadoController maquina;
     /**
      * Initializes the controller class.
      * @param url
@@ -119,6 +126,9 @@ public class PantallaChantonController implements Initializable {
         this.PC = new Jugador("PC");
         mapPC_ = new HashMap<>();
         mapJugador_ = new HashMap<>();
+        listaResultado = new ArrayList<>();
+        indice = 0;      
+        estados = 1;
     }        
     
     public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra, List<String> campos, Jugador jugador){
@@ -135,6 +145,7 @@ public class PantallaChantonController implements Initializable {
         campos.add("Total");
         mostrarEncabezado(hbJugador,listaCamposJugador,jugador);
         mostrarEncabezado(this.hbComputadora,listaCamposComputador,PC);
+        iniciarMaquina();
     }
     
     private void mostrarEncabezado(HBox encabezado, List<VBox> lista, Jugador tipo){       
@@ -157,7 +168,7 @@ public class PantallaChantonController implements Initializable {
         agregarCampo(lista,tipo);
     }
     
-    private void agregarCampo(List<VBox> lista, Jugador tipo){
+    private void agregarCampo(List<VBox> lista, Jugador tipo){        
         tipo.setPuntajeRonda(0);
         List<TextField> listTxtPC = new ArrayList<>();
         habilitar = true;
@@ -188,6 +199,7 @@ public class PantallaChantonController implements Initializable {
             HBox hb = (HBox)vb.getChildren().get(0);
             VBox vbBotones = vbBotones(txfJugador, ((Text)hb.getChildren().get(0)).getText(), tipo,txtTotal);
             botones.add(vbBotones);
+            
             newRonda.getChildren().addAll(txfJugador,new Line(0.0f, 0.0f, 0.0f, 30.0f));
             newRonda.setFocusTraversable(true);
             vb.getChildren().addAll(new Line(-100f, 00.0f,65f, 0.0f),newRonda);
@@ -197,10 +209,10 @@ public class PantallaChantonController implements Initializable {
             this.txtTotalRondaPC = txtTotal;
             iniciarJuegoPC(listTxtPC);
         }
-        threadBloquear(lista,botones);        
+        threadBloquear(lista,botones,tipo);        
     }
     
-    private void threadBloquear(List<VBox> lista,List<VBox> botones){
+    private void threadBloquear(List<VBox> lista,List<VBox> botones, Jugador jugador){
         Thread tr = new Thread(()->{
             while(habilitar){
                 System.out.print("");
@@ -211,19 +223,38 @@ public class PantallaChantonController implements Initializable {
                     for(VBox vb: lista.subList(1, lista.size()-1)){
                         String campo = ((Text)(((HBox)vb.getChildren().get(0)).getChildren().get(0))).getText();
                         HBox ultimo = ((HBox)vb.getChildren().get(vb.getChildren().size()-1));                            
-                        ultimo.getChildren().remove(1);
+                        ultimo.getChildren().remove(1);                        
                         bloquearTextField((TextField)ultimo.getChildren().get(0),habilitar);
                         ultimo.getChildren().addAll(botones.get(cont),new Line(0.0f, 0.0f, 0.0f, 30.0f));
+                        bloquearCampo(ultimo,habilitar,jugador);                        
                         cont++;
-                    }
+                    }                   
                 };
-                Platform.runLater(updater);
-            }
-            esperar(3);
+                Platform.runLater(updater); 
+            }            
+            esperar(2);
+            this.listaResultado.get(0).setDisable(false);   
             this.txtChanton.setVisible(false);
         });
         tr.setDaemon(true);
         tr.start();         
+    }
+    
+    private void bloquearCampo(HBox campoJugado,boolean desactivar, Jugador jugador){
+        indice = 0;
+        if(!jugador.getNickname().equalsIgnoreCase("PC"))
+            this.listaResultado.add(campoJugado);
+        campoJugado.setDisable(!desactivar);
+    }
+    
+    private void desbloquearSiguiente(){
+        indice++;
+        System.out.println("INDICE "+indice);
+        if (indice<listaResultado.size()){
+            listaResultado.get(indice).setDisable(false);        
+            estados++;
+        }
+            
     }
     
     private void bloquearTextField(TextField e, boolean habilitar){
@@ -249,12 +280,15 @@ public class PantallaChantonController implements Initializable {
             this.mapPC_.put(campo,txfJugador);
         else
             this.mapJugador_.put(campo, txfJugador);       
+       
         visto.setOnAction(e->{
             sumarPuntos(mapJugador_.get(campo),mapPC_.get(campo),true);
             visto.setDisable(true);
             x.setDisable(true);
             total.setText(String.valueOf(user.getPuntajeRonda()));
             this.txtTotalRondaPC.setText(String.valueOf(PC.getPuntajeRonda()));
+            //maquina.recibirParametros(estados, estados+1, this.lblLetra.getText().charAt(0));
+            desbloquearSiguiente();                        
         });
         x.setOnAction(e->{
             sumarPuntos(mapJugador_.get(campo),mapPC_.get(campo),false);
@@ -262,44 +296,64 @@ public class PantallaChantonController implements Initializable {
             x.setDisable(true);
             total.setText(String.valueOf(user.getPuntajeRonda()));
             this.txtTotalRondaPC.setText(String.valueOf(PC.getPuntajeRonda()));
+            seguirSumandoEnPC(jugador);
+            //maquina.recibirParametros(estados, estados, this.lblLetra.getText().charAt(0));
         });
         return vbBotones;
     }
     
     private void sumarPuntos(TextField tfJugador, TextField tfpC, boolean palabraValida){
-        boolean letraCorrecta = false;
-        if(!tfJugador.getText().trim().isEmpty())
-            letraCorrecta = tfJugador.getText().trim().toUpperCase().charAt(0)==this.lblLetra.getText().trim().toUpperCase().charAt(0);
-        
-        if((tfJugador.getText().trim().isEmpty() || !letraCorrecta) && !tfpC.getText().trim().isEmpty()){
-            tfJugador.setStyle("-fx-background-color: #FF6973");                 
-            tfpC.setStyle("-fx-background-color: #5BF0B6");
-            this.PC.aumentarPuntaje(100);
+        if(palabraValida){
+            if(tfJugador.getText().trim().isEmpty()){
+                tfJugador.setStyle("-fx-background-color: #FF6973");                 
+                tfpC.setStyle("-fx-background-color: #5BF0B6");
+                this.PC.aumentarPuntaje(100);
+            }else if(tfpC.getText().trim().isEmpty()){
+                tfpC.setStyle("-fx-background-color: #FF6973");                    
+                tfJugador.setStyle("-fx-background-color: #5BF0B6");
+                this.jugador.aumentarPuntaje(100);
+            }else if(tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim())){
+                this.PC.aumentarPuntaje(50);
+                this.jugador.aumentarPuntaje(50);
+                tfJugador.setStyle("-fx-background-color: #FAF49A");
+                tfpC.setStyle("-fx-background-color: #FAF49A");
+            }else{
+                this.PC.aumentarPuntaje(100);
+                this.jugador.aumentarPuntaje(100);
+                tfJugador.setStyle("-fx-background-color: #5BF0B6");
+                tfpC.setStyle("-fx-background-color: #5BF0B6");
+            }
         }
-        else if(tfpC.getText().trim().isEmpty() && !tfJugador.getText().trim().isEmpty() && letraCorrecta && palabraValida){
-            tfpC.setStyle("-fx-background-color: #FF6973");                    
-            tfJugador.setStyle("-fx-background-color: #5BF0B6");
-            this.jugador.aumentarPuntaje(100);
-        }else if(!tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfpC.getText().isEmpty() && !palabraValida){
-            tfJugador.setStyle("-fx-background-color: #FF6973");                 
-            tfpC.setStyle("-fx-background-color: #5BF0B6");
-            this.PC.aumentarPuntaje(100);
-        }
-        else if(tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfJugador.getText().isEmpty() && !tfpC.getText().isEmpty() && palabraValida){
-            this.PC.aumentarPuntaje(50);
-            this.jugador.aumentarPuntaje(50);
-            tfJugador.setStyle("-fx-background-color: #FAF49A");
-            tfpC.setStyle("-fx-background-color: #FAF49A");
-        }else if(!tfJugador.getText().trim().equalsIgnoreCase(tfpC.getText().trim()) && !tfJugador.getText().isEmpty() && !tfpC.getText().isEmpty() && palabraValida){
-            this.PC.aumentarPuntaje(100);
-            this.jugador.aumentarPuntaje(100);
-            tfJugador.setStyle("-fx-background-color: #5BF0B6");
-            tfpC.setStyle("-fx-background-color: #5BF0B6");
+        else{
+            if(!tfpC.getText().trim().isEmpty()){
+                tfpC.setStyle("-fx-background-color: #5BF0B6");                    
+                this.PC.aumentarPuntaje(100);
+            }else{
+                tfpC.setStyle("-fx-background-color: #FF6973");              
+                
+            }                                
         }
         txtPuntajeJugador.setText(String.valueOf(this.jugador.getPuntaje()));
         txtPuntajeCompu.setText(String.valueOf(this.PC.getPuntaje()));
     }
 
+    private void seguirSumandoEnPC(Jugador jugador){        
+        if(!jugador.equals(PC)){
+            indice++;
+            if(indice<listaResultado.size()){
+                VBox vbBtn = (VBox)(((HBox)listaResultado.get(indice)).getChildren().get(1));
+                vbBtn.getChildren().get(1).fireEvent(new ActionEvent());                            
+            }else{
+                int actualRonda = Integer.parseInt(this.txtRondas.getText().trim());
+                int totalRondas =Integer.parseInt(this.txtTotalRondas.getText().trim()); 
+                if(actualRonda<totalRondas)
+                    this.btnSgteRonda.fire();
+                else
+                    this.btnFinalizar.fire();    
+            }
+        }        
+    }
+    
     @FXML
     private void pararMano(ActionEvent event) {
         chanton = true;
@@ -337,7 +391,6 @@ public class PantallaChantonController implements Initializable {
             stage.show();            
             Stage myStage = (Stage) this.btnChanton.getScene().getWindow();
             myStage.close();
-            maquina.recibirParametros(31);
             Platform.runLater(()->habilitar = false);
         }catch(IOException e){
             System.out.println(e.getMessage());
@@ -346,6 +399,12 @@ public class PantallaChantonController implements Initializable {
 
     @FXML
     private void sgteRonda(ActionEvent event) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setContentText("Ingrese una nueva letra para esta ronda");
+        alert.setTitle("Nueva letra");
+        alert.show();
+        
+        listaResultado.clear();
         chanton = false;
         this.txtChanton.setText("Chanton");
         this.lblLetra.setText("");
@@ -431,5 +490,32 @@ public class PantallaChantonController implements Initializable {
         }
         a.show();
     }
+    
+    private void iniciarMaquina(){
+            FXMLLoader loaderMaquina = new FXMLLoader();       
+            loaderMaquina.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
+            Pane ventanaMaquina;
+        try {
+            ventanaMaquina = (Pane) loaderMaquina.load();
+            Stage stageMaquina = new Stage();                        
+            maquina = loaderMaquina.getController();
+            maquina.recibirParametros(0,0,this.lblLetra.getText().charAt(0));
+            Scene sceneMaquina = new Scene(ventanaMaquina);            
+            sceneMaquina.setRoot(ventanaMaquina);
+            stageMaquina.setScene(sceneMaquina);
+            
+            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+            
+            //set Stage boundaries to the lower right corner of the visible bounds of the main screen
+            stageMaquina.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 710);
+            stageMaquina.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 510);
+            stageMaquina.setWidth(710);
+            stageMaquina.setHeight(510);
+            stageMaquina.show();        
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaConfiguracionesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }        
 
 }

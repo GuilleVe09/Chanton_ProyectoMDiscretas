@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import static interfaz.Main.maquina;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,15 +43,12 @@ public class PantallaInicialController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/pantallaConfiguraciones.fxml"));
             Parent root = loader.load();
             PantallaConfiguracionesController controlador = loader.getController();
-            maquina.recibirParametros(12);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
             scene.getWindow().setX(0);
             stage.show();
-            stage.setOnCloseRequest(e -> {
-                controlador.closeWindows();
-                maquina.recibirParametros(21);});
+            stage.setOnCloseRequest(e -> controlador.closeWindows());
             Stage myStage = (Stage) this.btnComenzar.getScene().getWindow();
             myStage.close();
             

@@ -54,7 +54,7 @@
                         <Button fx:id="btnEscogerLetraAzar" mnemonicParsing="false" onAction="#escogerLetraAlAzar" prefHeight="25.0" prefWidth="155.0" text="Escoger letra al azar" textAlignment="CENTER" />
                      </children>
                   </HBox>
-                  <ScrollPane fitToWidth="true" prefHeight="208.0" prefWidth="350.0">
+                  <ScrollPane disable="true" fitToWidth="true" prefHeight="208.0" prefWidth="350.0">
                      <content>
                         <VBox fx:id="vbCamposJuego" prefHeight="200.0" style="-fx-background-color: #FFFFFF;" />
                      </content>

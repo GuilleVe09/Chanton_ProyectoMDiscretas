@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import static interfaz.Main.maquina;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +25,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import modelo.Jugador;
@@ -71,11 +68,11 @@ public class PantallaConfiguracionesController implements Initializable {
     
     //Instancia del controlador
     private PantallaConfiguracionesController controladorJuego;
-    
+    public static MaquinaEstadoController maquina;
     private int nRondas;
     private Character letra;
     private final char[] listaLetras = {'A','B','C','D','E'};
-    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais","Fruta","Animal");
+    private final List<String> campos = Arrays.asList("Nombre","Apellido","Ciudad/pais");
     private boolean continuar;    
     private List<String> camposSeleccionados;        
     private Jugador jugador;
@@ -148,22 +145,21 @@ public class PantallaConfiguracionesController implements Initializable {
             Scene scene = new Scene(root);
             Stage stage3 = new Stage();
             stage3.setScene(scene);
-            maquina.recibirParametros(23);
             stage3.setOnCloseRequest(e->{
                 controladorChanton.regresar(new ActionEvent());
-                maquina.recibirParametros(31);
+                controladorChanton.maquina.cerrarMaquina();
             });
             stage3.show();
-            scene.getWindow().setX(0);
+            //scene.getWindow().setX(0);
             Stage myStage = (Stage) this.btnIniciarJuego.getScene().getWindow();
-            myStage.close();
+            myStage.close();         
         }catch(IOException e){
             System.out.println(e.getMessage());
         }catch(Exception e){
             System.out.println(e.getMessage());
         }      
     }
-
+    
     @FXML
     private void escogerLetraAlAzar() {
         int indiceAleatorio = numeroAleatorioEnRango(0, listaLetras.length - 1);
@@ -183,7 +179,6 @@ public class PantallaConfiguracionesController implements Initializable {
             guardarRondas();
             guardarLetraE();
             this.btnIniciarJuego.setDisable(!continuar);
-            maquina.recibirParametros(2);
         }            
     }
     //Valida que los textField no esten vacios 
@@ -201,8 +196,8 @@ public class PantallaConfiguracionesController implements Initializable {
         this.jugador = new Jugador(this.txtnickname.getText().trim());
     }    
     
-    private void mostrarCamposDisponibles(){
-        for (String s: campos){
+    private void mostrarCamposDisponibles(){        
+        campos.forEach((s) -> {
             CheckBox ch = new CheckBox(s);
             this.vbCamposJuego.getChildren().add(ch);
             ch.setOnAction(e->{
@@ -211,7 +206,8 @@ public class PantallaConfiguracionesController implements Initializable {
                 else
                     eliminarCampo(s);
             });
-        }
+            ch.fire();
+        });
     }
     
     private void agregarCampo(String str){

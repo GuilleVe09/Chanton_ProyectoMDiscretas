@@ -29,9 +29,7 @@ import javafx.stage.Stage;
  *
  * @author guill
  */
-public class Main extends Application{
-
-    public static MaquinaEstadoController maquina;
+public class Main extends Application{    
     public static Map<Character,HashMap<String,List<String>>> palabras;
     @Override
     public void start(Stage primaryStage) {
@@ -44,30 +42,7 @@ public class Main extends Application{
             scene.setRoot(ventana);
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
-            primaryStage.show();
-                        
-            Stage stageMaquina = new Stage();
-            FXMLLoader loaderMaquina = new FXMLLoader();
-            loaderMaquina.setLocation(Main.class.getResource("/vistas/maquinaEstado.fxml"));
-            Pane ventanaMaquina = (Pane) loaderMaquina.load();
-            
-            maquina = loaderMaquina.getController();
-            maquina.recibirParametros(1);
-            primaryStage.setOnCloseRequest(e->stageMaquina.close());
-            
-            Scene sceneMaquina = new Scene(ventanaMaquina);            
-            sceneMaquina.setRoot(ventanaMaquina);
-            stageMaquina.setScene(sceneMaquina);
-            
-            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
- 
-            //set Stage boundaries to the lower right corner of the visible bounds of the main screen
-            stageMaquina.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 710);
-            stageMaquina.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 510);
-            stageMaquina.setWidth(710);
-            stageMaquina.setHeight(510);
-            stageMaquina.show();
-            
+            primaryStage.show();                                                
             
         }catch(IOException e){
             System.out.println(e.getMessage()); 
@@ -107,9 +82,12 @@ public class Main extends Application{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        String  l = "dsfs-";
+        String[] data = l.split("-");
+        System.out.println("data len"+data.length);
         palabras = crearMapa();
         System.out.println(palabras);
-        launch(args);
+        launch(args);        
     }
     
 }

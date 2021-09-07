@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="706.0" stylesheets="@../estilo/maquinaestado.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.MaquinaEstadoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="772.0" stylesheets="@../estilo/maquinaestado.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.MaquinaEstadoController">
    <top>
       <ImageView fitHeight="103.0" fitWidth="173.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
@@ -66,245 +65,258 @@
       </SplitPane>
    </right>
    <center>
-      <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="432.0" prefWidth="517.0" style="-fx-background-color: #E2E685;" BorderPane.alignment="CENTER">
+      <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="432.0" prefWidth="583.0" style="-fx-background-color: #E2E685;" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="S1" layoutX="9.0" layoutY="90.0" prefHeight="77.0" prefWidth="112.0">
+            <Pane fx:id="lnB01" layoutX="70.0" layoutY="121.0" prefHeight="71.0" prefWidth="68.0">
                <children>
-                  <Circle fill="DODGERBLUE" layoutX="66.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="56.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-                  <Line endX="-49.0" layoutX="80.0" layoutY="39.0" startX="-81.0" style="-fx-stroke-width: 2;" />
-                  <Text id="textMaquina" layoutX="-1.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" wrappingWidth="88.3359375" />
-               </children>
-            </Pane>
-            <Pane fx:id="S2" layoutX="135.0" layoutY="89.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="S3" layoutX="282.0" layoutY="91.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="S7" layoutX="277.0" layoutY="238.0" prefHeight="45.0" prefWidth="50.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="26.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="18.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="7">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S4" layoutX="429.0" layoutY="93.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="img12" layoutX="79.0" layoutY="155.0" prefHeight="61.0" prefWidth="91.0">
-               <children>
-                  <Text id="textMaquina" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Configurar juego?" wrappingWidth="88.3359375" />
-                  <ImageView fitHeight="39.0" fitWidth="87.0" layoutX="-1.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../recursos/imagenes/flecha%20curva.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="img21" layoutX="76.0" layoutY="51.0" prefHeight="48.0" prefWidth="105.0">
-               <children>
-                  <Text id="textMaquina" fx:id="txt21" layoutX="27.0" layoutY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No configurar juego" wrappingWidth="86.8359375" />
-                  <ImageView fitHeight="41.0" fitWidth="94.0" layoutX="3.0" layoutY="3.0" pickOnBounds="true" rotate="-178.7">
-                     <image>
-                        <Image url="@../recursos/imagenes/flecha%20curva.png" />
-                     </image>
-                     <effect>
-                        <InnerShadow height="0.0" radius="0.0" width="0.0" />
-                     </effect>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Pane fx:id="img23" layoutX="210.0" layoutY="88.0" prefHeight="49.0" prefWidth="81.0">
-               <children>
-                  <ImageView fitHeight="15.0" fitWidth="79.0" layoutY="31.0" pickOnBounds="true">
+                  <ImageView fitHeight="23.0" fitWidth="87.0" layoutX="-5.0" layoutY="27.0" pickOnBounds="true" rotate="-50.7">
                      <image>
                         <Image url="@../recursos/imagenes/flecha%20directa.png" />
                      </image>
                   </ImageView>
-                  <Text id="textMaquina" layoutX="-5.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio partida" textAlignment="CENTER" wrappingWidth="80.8359375" />
+                  <Text layoutX="24.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
                </children>
             </Pane>
-            <Pane fx:id="img2" layoutX="168.0" layoutY="159.0" prefHeight="65.0" prefWidth="79.0">
+            <Pane fx:id="S0" layoutX="22.0" layoutY="184.0" prefHeight="77.0" prefWidth="100.0">
                <children>
-                  <ImageView fitHeight="36.0" fitWidth="50.0" layoutX="2.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                  <Circle fill="DODGERBLUE" layoutX="56.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="42.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S0">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+                  <Line endX="-49.0" layoutX="79.0" layoutY="34.0" startX="-81.0" style="-fx-stroke-width: 2;" />
+                  <Text id="textMaquina" layoutX="-3.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" wrappingWidth="88.3359375" />
+               </children>
+            </Pane>
+            <Pane fx:id="SA1" layoutX="144.0" layoutY="185.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S4">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="SB2" layoutX="265.0" layoutY="52.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S2">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="SA3" layoutX="360.0" layoutY="183.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S6">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="SB1" layoutX="110.0" layoutY="75.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S1">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="SA2" layoutX="252.0" layoutY="185.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S5">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="SB3" layoutX="383.0" layoutY="51.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="43.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="29.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S3">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="lnA40" layoutX="94.0" layoutY="220.0" prefHeight="73.0" prefWidth="421.0">
+               <children>
+                  <ImageView fitHeight="89.0" fitWidth="424.0" layoutX="1.0" layoutY="-17.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20curva%20larga_3.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="197.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" wrappingWidth="8.105461120605469" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnB40" layoutX="80.0" layoutY="219.0" prefHeight="118.0" prefWidth="439.0">
+               <children>
+                  <ImageView fitHeight="133.0" fitWidth="455.0" layoutX="-4.0" layoutY="-24.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20curva%20larga_3.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="213.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
+               </children>
+            </Pane>
+            <Pane fx:id="S4" layoutX="474.0" layoutY="162.0" prefHeight="63.0" prefWidth="86.0">
+               <children>
+                  <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="32.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="28.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="S7">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane fx:id="lnA01" layoutX="103.0" layoutY="196.0" prefHeight="36.0" prefWidth="59.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="58.0" layoutY="10.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20directa.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="22.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA12" layoutX="212.0" layoutY="202.0" prefHeight="31.0" prefWidth="57.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="58.0" layoutY="6.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20directa.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="23.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA23" layoutX="320.0" layoutY="204.0" prefHeight="24.0" prefWidth="59.0">
+               <children>
+                  <ImageView fitHeight="22.0" fitWidth="58.0" layoutY="2.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20directa.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="21.0" layoutY="8.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA34" layoutX="427.0" layoutY="169.0" prefHeight="64.0" prefWidth="65.0">
+               <children>
+                  <Text layoutX="25.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
+                  <ImageView fitHeight="23.0" fitWidth="65.0" layoutY="24.0" pickOnBounds="true" rotate="-18.4">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20directa.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="lnB1" layoutX="136.0" layoutY="47.0" prefHeight="36.0" prefWidth="46.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
                         <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
                      </image>
-                     <effect>
-                        <Glow level="0.0" />
-                     </effect>
+                     <rotationAxis>
+                        <Point3D x="180.0" z="1.0" />
+                     </rotationAxis>
                   </ImageView>
-                  <Text id="textMaquina" layoutX="8.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guardar Configuraciones" textAlignment="CENTER" wrappingWidth="80.8359375" />
+                  <Text layoutX="31.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
                </children>
             </Pane>
-            <Pane fx:id="img31" layoutX="60.0" layoutY="15.0" prefHeight="90.0" prefWidth="278.0">
+            <Pane fx:id="lnB2" layoutX="289.0" layoutY="16.0" prefHeight="44.0" prefWidth="60.0">
                <children>
-                  <ImageView fitHeight="89.0" fitWidth="268.0" layoutX="-1.0" layoutY="-11.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../recursos/imagenes/flecha%20curva%20larga.png" />
-                     </image>
-                  </ImageView>
-                  <Text id="textMaquina" layoutX="102.0" layoutY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inicio" textAlignment="CENTER" wrappingWidth="80.8359375" />
-               </children>
-            </Pane>
-            <Pane fx:id="img3" layoutX="314.0" layoutY="161.0" prefHeight="65.0" prefWidth="79.0">
-               <children>
-                  <ImageView fitHeight="36.0" fitWidth="50.0" layoutX="2.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="14.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
                      <image>
                         <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
                      </image>
-                     <effect>
-                        <Glow level="0.0" />
-                     </effect>
+                     <rotationAxis>
+                        <Point3D x="180.0" z="1.0" />
+                     </rotationAxis>
                   </ImageView>
-                  <Text id="textMaquina" layoutX="8.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ningun jugador ha hecho chanton" textAlignment="CENTER" wrappingWidth="80.8359375" />
+                  <Text layoutX="30.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
                </children>
             </Pane>
-            <Pane fx:id="img34" layoutX="357.0" layoutY="88.0" prefHeight="49.0" prefWidth="81.0">
+            <Pane fx:id="lnB3" layoutX="412.0" layoutY="21.0" prefHeight="38.0" prefWidth="45.0">
                <children>
-                  <ImageView fitHeight="15.0" fitWidth="79.0" layoutY="31.0" pickOnBounds="true">
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="9.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
+                     </image>
+                     <rotationAxis>
+                        <Point3D x="180.0" z="1.0" />
+                     </rotationAxis>
+                  </ImageView>
+                  <Text layoutX="29.0" layoutY="11.0" strokeType="OUTSIDE" strokeWidth="0.0" text="a" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA3" layoutX="374.0" layoutY="154.0" prefHeight="40.0" prefWidth="41.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="6.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA2" layoutX="264.0" layoutY="154.0" prefHeight="40.0" prefWidth="43.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutX="5.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="8.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnA1" layoutX="161.0" layoutY="157.0" prefHeight="36.0" prefWidth="39.0">
+               <children>
+                  <ImageView fitHeight="35.0" fitWidth="30.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20recursiva.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="3.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
+               </children>
+            </Pane>
+            <Pane fx:id="lnB12" layoutX="177.0" layoutY="71.0" prefHeight="34.0" prefWidth="106.0">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="107.0" layoutY="26.0" pickOnBounds="true" rotate="-8.1" y="-15.0">
                      <image>
                         <Image url="@../recursos/imagenes/flecha%20directa.png" />
                      </image>
                   </ImageView>
-                  <Text id="textMaquina" layoutX="-5.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Un jugador hizo chanton" textAlignment="CENTER" wrappingWidth="80.8359375" />
+                  <Text layoutX="30.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
                </children>
             </Pane>
-            <Pane fx:id="S5" layoutX="431.0" layoutY="243.0" prefHeight="76.0" prefWidth="73.0">
+            <Pane fx:id="lnB23" layoutX="331.0" layoutY="61.0" prefHeight="36.0" prefWidth="71.0">
                <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="img45" layoutX="458.0" layoutY="152.0" prefHeight="95.0" prefWidth="90.0">
-               <children>
-                  <ImageView fitHeight="17.0" fitWidth="82.0" layoutX="-27.0" layoutY="44.0" pickOnBounds="true" rotate="90.0">
+                  <ImageView fitHeight="23.0" fitWidth="67.0" layoutX="3.0" layoutY="25.0" pickOnBounds="true" y="-15.0">
                      <image>
                         <Image url="@../recursos/imagenes/flecha%20directa.png" />
                      </image>
                   </ImageView>
-                  <Text id="textMaquina" layoutX="4.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verificar palabra   " textAlignment="CENTER" wrappingWidth="74.8359375" />
+                  <Text layoutX="27.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
                </children>
             </Pane>
-            <Pane fx:id="S9" layoutX="252.0" layoutY="354.0" prefHeight="45.0" prefWidth="50.0">
+            <Pane fx:id="lnB34" layoutX="436.0" layoutY="104.0" prefHeight="67.0" prefWidth="74.0">
                <children>
-                  <Circle fill="DODGERBLUE" layoutX="26.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="18.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
+                  <ImageView fitHeight="23.0" fitWidth="94.0" layoutX="-11.0" layoutY="38.0" pickOnBounds="true" rotate="45.0" y="-15.0">
+                     <image>
+                        <Image url="@../recursos/imagenes/flecha%20directa.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="34.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="b" />
                </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S8" layoutX="270.0" layoutY="295.0" prefHeight="45.0" prefWidth="50.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="26.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="18.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S6" layoutX="331.0" layoutY="284.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="6">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S511" layoutX="116.0" layoutY="260.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S5111" layoutX="126.0" layoutY="270.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
-            </Pane>
-            <Pane fx:id="S51111" layoutX="34.0" layoutY="278.0" prefHeight="76.0" prefWidth="73.0">
-               <children>
-                  <Circle fill="DODGERBLUE" layoutX="41.0" layoutY="36.0" radius="35.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Text fill="WHITE" layoutX="33.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Text>
-               </children>
-               <effect>
-                  <Glow level="0.0" />
-               </effect>
             </Pane>
          </children>
          <BorderPane.margin>
