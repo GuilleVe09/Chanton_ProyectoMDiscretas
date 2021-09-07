@@ -25,7 +25,7 @@
       </ImageView>
    </top>
    <right>
-      <SplitPane dividerPositions="0.6449438202247191" orientation="VERTICAL" prefHeight="447.0" prefWidth="166.0" BorderPane.alignment="CENTER">
+      <SplitPane dividerPositions="0.6449438202247191" orientation="VERTICAL" prefHeight="447.0" prefWidth="203.0" BorderPane.alignment="CENTER">
         <items>
             <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #427299; -fx-fit-to-height: true;">
                <content>

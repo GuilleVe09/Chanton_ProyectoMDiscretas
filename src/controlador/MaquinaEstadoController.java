@@ -124,10 +124,10 @@ public class MaquinaEstadoController implements Initializable {
         int indPaneI=0;
         int indLine=0;
         int indPaneF=-1;
-        
+        String strEstado;
         if(inicio == fin){
             indPaneI = indices.indexOf("S"+letra+""+inicio);
-            indLine = indices.indexOf("ln"+letra+""+inicio);
+            indLine = indices.indexOf("ln"+letra+""+inicio);            
             System.out.println("S"+letra+"inicio");
             System.out.println("ln"+letra+""+inicio);
         }
@@ -147,41 +147,62 @@ public class MaquinaEstadoController implements Initializable {
         }else{
             indPaneI = indices.indexOf("S4");
             indLine = indices.indexOf("ln"+letra+"40");
-            indPaneF = indices.indexOf("S0");
-            System.out.println("Prueba "+indPaneI);
+            indPaneF = indices.indexOf("S0");                    
         }
         
         Pane pInicial = estados.get(indPaneI);
         Pane linea = estados.get(indLine);
         Pane pFinal = null;
-        if(indPaneF!=-1)
-            pFinal = estados.get(indPaneF);
+        if(indPaneF!=-1){
+            pFinal = estados.get(indPaneF);             
+            agregarEstado(pFinal,indices.get(indPaneF));
+        }else{
+            if(inicio!=fin)
+                agregarEstado(S4,"S4"); 
+        }           
         avanzar(pInicial,linea, pFinal);
     }
     
-    private void agregarEstado(){
-        if(!SA1.isVisible())
-            vbEstados.getChildren().add(new Label("S4: Nombre con A"));
-        else if(!SA2.isVisible())
-            vbEstados.getChildren().add(new Label("S5: Apellido con A"));
-        else if(!SA3.isVisible())
-            vbEstados.getChildren().add(new Label("S6: País con A"));
-        else if(!S4.isVisible())
-            vbEstados.getChildren().add(new Label("S7: Ronda terminada"));
-        else if(!SB1.isVisible())
-            vbEstados.getChildren().add(new Label("S1: Nombre con B"));
-        else if(!SB2.isVisible())
-            vbEstados.getChildren().add(new Label("S2: Apellido con A"));
-        else if(!SB3.isVisible())
-            vbEstados.getChildren().add(new Label("S3: País con B"));
+    private void agregarEstado(Pane pane, String estado){
+        if(!pane.isVisible()){
+            if(null != estado)
+                switch (estado) {
+                case "SA1":
+                    vbEstados.getChildren().add(new Label("S4: Nombre con A"));
+                    break;
+                case "SA2":
+                    vbEstados.getChildren().add(new Label("S5: Apellido con A"));
+                    break;
+                case "SA3":
+                    vbEstados.getChildren().add(new Label("S6: País con A"));
+                    break;
+                case "S4":
+                    vbEstados.getChildren().add(new Label("S7: Ronda terminada"));
+                    break;
+                case "SB1":
+                    vbEstados.getChildren().add(new Label("S1: Nombre con B"));
+                    break;
+                case "SB2":
+                    vbEstados.getChildren().add(new Label("S2: Apellido con A"));
+                    break;
+                case "SB3":
+                    vbEstados.getChildren().add(new Label("S3: País con B"));
+                    break;
+                default:
+                    break;
+            }
+        }        
     }
     
     private void avanzar(Pane paneI, Pane linea, Pane paneF){
         paneI.setVisible(true);
         linea.setVisible(true);
-        if(paneF!=null)
-            paneF.setVisible(true);
-        agregarEstado();
+        if(paneF!=null){
+            paneF.setVisible(true);            
+        }
+            
+            
+            
     }
     
     private void empezarMaquina(){
