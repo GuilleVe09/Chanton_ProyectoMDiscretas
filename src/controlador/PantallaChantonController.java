@@ -130,7 +130,7 @@ public class PantallaChantonController implements Initializable {
         listaResultado = new ArrayList<>();
         indice = 0;      
         estado = 1;
-        tiempoChanton = 10;        
+        tiempoChanton = 15;        
     }        
     
     public void recibeParametros(PantallaConfiguracionesController controlador, String rondas, String letra, List<String> campos, Jugador jugador){
@@ -467,7 +467,7 @@ public class PantallaChantonController implements Initializable {
     
     private void esperarRandom(int n){
         Random rd = new Random();
-        int tiempo = rd.nextInt(n)+1500;
+        int tiempo = rd.nextInt(n)+2000;
         try {
             Thread.sleep(tiempo);
         } catch (InterruptedException ex) {
